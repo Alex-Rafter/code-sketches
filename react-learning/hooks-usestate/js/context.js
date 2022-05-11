@@ -4,14 +4,11 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
 import reactHyperscriptHelpers from 'https://cdn.skypack.dev/react-hyperscript-helpers';
 const { div, h1, h2, h3, button, ul, li, p, h } = reactHyperscriptHelpers
 
-const GridOne = ({ el }) => div('.row', [div('.col-12', [el])])
+const GridOne = (props) => div('.row', [div('.col-12', [props.children])])
 
-const App = () => {
-    const x = () => p('.text-primary', 'lorem ipsum')
-    return div('.container-fluid',
-        [GridOne({ el: x() })]
-    )
-}
+const Paragraph = ({ text }) => p('.text-primary', `${text}`)
+
+const App = () => { return GridOne({children : [h1('hello'), h2('bye for now'), Paragraph({text : 'Thingy'})]})}
 
 const domContainer = document.querySelector('#root');
 ReactDOM.render(h(App), domContainer);
