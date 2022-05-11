@@ -3,6 +3,8 @@
 // import ReactDOM from 'https://cdn.skypack.dev/react-dom';
 import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
 // https://www.npmjs.com/package/es-react
+import { minify } from 'https://unpkg.com/csso/dist/csso.esm.js';
+import { Style } from './Style.js'
 
 import reactHyperscriptHelpers from 'https://cdn.skypack.dev/react-hyperscript-helpers';
 const { div, h1, h2, h3, button, ul, li, h } = reactHyperscriptHelpers
@@ -21,21 +23,25 @@ const App = () => {
 
     const x = () => setText(text => text = `more than ${count} button clicks`)
 
-    const objOfEVents = {
-        // onMouseOver: () => setText('You have scrolled over me'),
-        // onMouseOut: () => setText('Bye, you have scrolled out')
+
+    const Button = () => {
+
+        const css = {
+            color: 'red, blue,green',
+            border: '1px solid red',
+        }
+
+        const cssHover = {
+            hover : true,
+            color: 'yellow',
+            border: '1px solid red',
+            fontSize : '50px',
+        }
+
+        return div([Style('.btn', {style : cssHover}, css), button(`.btn.btn-primary`, null, `Clicked ${count} times`)])
     }
 
-    const btnEvents = {
-        onClick: () => {
-            setCount(prevCount => prevCount + 1),
-            setTimeout(x(), 500)
-         }
-    }
-
-    const Button = () => button('.btn.btn-primary', btnEvents, `Clicked ${count} times`)
-
-    return div([h1('.display-1', objOfEVents, text), Button()])
+    return div([h1('.display-1', text), Button()])
 }
 
 const domContainer = document.querySelector('#root');
