@@ -5,8 +5,8 @@
   "main": "./react-learning/es-react-test/src/js/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild ./react-learning/es-react-test/src/js/index.jsx --bundle --outfile=./react-learning/es-react-test/build/js/out.js --watch",
-    "watch": "watchexec -e jsx npm run build"
+    "build": "esbuild ./react-learning/es-react-test/src/js/index.jsx --bundle --minify --outfile=./react-learning/es-react-test/build/js/out.js",
+    "watch": "esbuild ./react-learning/es-react-test/src/js/index.jsx --bundle --minify --outfile=./react-learning/es-react-test/build/js/out.js --watch"
   },
   "keywords": [
     "sketches",
@@ -17,6 +17,9 @@
   "license": "MIT",
   "dependencies": {
     "esbuild": "^0.14.39",
+    "html-react-parser": "^1.4.12",
+    "marked": "^4.0.15",
+    "preact": "^10.7.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }
