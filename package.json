@@ -5,6 +5,7 @@
   "main": "./react-learning/es-react-test/src/js/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "live": "live-server ./react-learning/es-react-test/build/index.html",
     "build": "esbuild ./react-learning/es-react-test/src/js/index.jsx --bundle --minify --jsx-factory=h --outfile=./react-learning/es-react-test/build/js/out.js",
     "watch": "esbuild ./react-learning/es-react-test/src/js/index.jsx --bundle --minify --jsx-factory=h --outfile=./react-learning/es-react-test/build/js/out.js --watch"
   },
@@ -18,8 +19,10 @@
   "dependencies": {
     "esbuild": "^0.14.39",
     "html-react-parser": "^1.4.12",
+    "live-server": "^1.2.2",
     "marked": "^4.0.15",
     "preact": "^10.7.2",
+    "preact-markdown": "^2.1.0",
     "preact-parser": "^1.3.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
