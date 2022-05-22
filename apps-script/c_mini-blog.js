@@ -7,4 +7,6 @@ function miniBlog() {
         const gistAsHTML = marked.parse(gistAsMd)
         item.content = gistAsHTML
     })
+
+    console.log(miniBlog)
 }
