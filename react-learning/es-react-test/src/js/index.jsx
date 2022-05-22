@@ -13,16 +13,17 @@ fetch(url)
 
     const Data = createContext(json.markdown[0].content);
 
-    function Markdown({className}) {
+    function Markdown({ className }) {
       const MD = marked.parse(useContext(Data))
       const HTML = parse(MD)
       return <div id="topLevel" className={className}>{HTML}</div>
     }
 
     function Component1() {
-      return <Markdown className="tst"/>
+      return <Markdown className="tst" />
     }
-const root = document.querySelector('#root')
+
+    const root = document.querySelector('#root')
     render(<Component1 />, root)
   });
 
