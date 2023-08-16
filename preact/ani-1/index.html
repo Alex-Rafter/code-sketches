@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap&text=enter" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Ani JS</title>
+    <style>
+        body {
+            font-family: 'Space Mono', monospace;
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "anime" : "https://esm.sh/animejs/lib/anime.es.js",
+                "preact" : "https://esm.sh/preact",
+                "hooks" :"https://esm.sh/preact/hooks",
+                "htm" : "https://esm.sh/htm",
+                "preact-custom-element" : "https://esm.sh/preact-custom-element"
+              }
+        }
+    </script>
+    <script type="module" src="/js/index.js"></script>
+
+</head>
+
+<body>
+    <my-app title="a simple animation">
+        <span slot="title">
+            <my-title title="I am some text"></my-title>
+        </span>
+        <my-circle></my-circle>
+        <my-circle></my-circle>
+        <my-circle></my-circle>
+        <my-circle></my-circle>
+        <my-circle></my-circle>
+    </my-app>
+</body>
+
+</html>

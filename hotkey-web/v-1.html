@@ -1,0 +1,19 @@
+<div id="hotKeyCarousel" class="carousel slide">
+    <button v-scope="" @click="store.toggleHints()" class="btn btn-secondary">
+     Click
+    </button>
+    <div class="carousel-inner">
+     <div v-scope="objsArr" v-for="(obj, index) in objsArr" class="carousel-item" :class="index == 1 && 'active'">
+      <div class="d-block vw-100" :class="index % 2 ? 'bg-primary' : 'bg-secondary'">
+       <!-- Prompt -->
+       <h2 :data-hotkey="obj.hotKey" class="display-1 text-center d-flex align-items-center justify-content-center" :class="{'red' : obj.toggle}" @click="obj.togg" style="height: 35vh; margin-top: 15vh;">
+        {{obj.name}}
+       </h2>
+       <!-- Hint -->
+       <p class="w-100 text-center h2 text-white d-flex justify-content-center" :class="{'visually-hidden' : ! store.hints}" style="height: 35vh;">
+        {{obj.hotKey}}
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>

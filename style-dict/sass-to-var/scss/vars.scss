@@ -1,0 +1,100 @@
+@use "sass:list";
+@use "sass:color";
+
+$color-vars: ("--color-primary": ('base': #ff0000, 'light' : #fd3f3f, 'dark' : #b10000), "--color-secondary": ('base': #8cff00, 'light' : #b8ff60, 'dark' : #559a00), "--color-tertiary": ('base': #ff00ee, 'light' : lighten(#ff00ee, 20%), 'dark' : darken(#ff00ee, 20%)));
+$font-size-vars : ('--font-size-1' : 0.75rem, '--font-size-2' : 1rem, '--font-size-3' : 2rem, '--font-size-4' : 3rem);
+$spacers : 0rem, 0.25rem, 0.5rem, 0.75rem, 1rem, 1.25rem, 1.5rem, 2.75rem;
+$spacing-size-vars : '--spacing-size-0' , '--spacing-size-1', '--spacing-size-2' , '--spacing-size-3', '--spacing-size-4', '--spacing-size-5', '--spacing-size-6', '--spacing-size-7';
+// $spacing-margin-vars : '--margin-size-0' , '--margin-size-1', '--margin-size-2' , '--margin-size-3', '--margin-size-4', '--margin-size-5', '--margin-size-6', '--margin-size-7';
+// $spacing-padding-vars : '--padding-size-0' , '--padding-size-1', '--padding-size-2' , '--padding-size-3', '--padding-size-4', '--padding-size-5', '--padding-size-6', '--padding-size-7';
+
+:root {
+
+    @each $key, $value in $color-vars {
+
+      @each $nested-key, $nested-value in $value {
+        #{$key}-#{$nested-key}: #{$nested-value};
+      }
+
+    }
+
+      /* Here */
+
+      @each $key, $value in $font-size-vars {
+        #{$key}: #{$value};
+      }
+
+      /* Here */
+
+      // @each $key, $value in $spacing-size-vars {
+      //   #{$key}: #{$value};
+      // }
+
+
+      // @for $i from 1 through list.length($spacers) {
+      //   #{list.nth($spacing-size-vars, $i)}: #{list.nth($spacers, $i)};
+      // }
+
+      
+      @for $i from 1 through list.length($spacers) {
+        --spacing-size-#{$i} : #{list.nth($spacers, $i)};
+      }
+
+      /* Here */
+
+      // @for $i from 1 through list.length($spacers) {
+      //   #{list.nth($spacing-margin-vars, $i)}: var(#{list.nth($spacing-size-vars, $i)});
+      // }
+
+      @for $i from 1 through list.length($spacers) {
+        --margin-size-#{$i} : var(#{list.nth($spacing-size-vars, $i)});
+      }
+
+      /* Here */
+
+      // @for $i from 1 through list.length($spacers) {
+      //   #{list.nth($spacing-padding-vars, $i)}: var(#{list.nth($spacing-size-vars, $i)});
+      // }
+
+      @for $i from 1 through list.length($spacers) {
+        --padding-size-#{$i} : var(#{list.nth($spacing-size-vars, $i)});
+      }
+      
+}
+
+// @for $i from 1 through list.length($spacers) {
+//   .m-#{$i} {
+//     margin : var(#{list.nth($spacing-size-vars, $i)});
+//   }
+
+//   .mx-#{$i} {
+//     margin-left : var(#{list.nth($spacing-size-vars, $i)});
+//     margin-right : var(#{list.nth($spacing-size-vars, $i)});
+//   }
+
+//   .my-#{$i} {
+//     margin-top : var(#{list.nth($spacing-size-vars, $i)});
+//     margin-bottom : var(#{list.nth($spacing-size-vars, $i)});
+//   }  
+
+//   .ms-#{$i} {
+//     margin-left : var(#{list.nth($spacing-size-vars, $i)});
+//   }  
+
+//   .me-#{$i} {
+//     margin-right : var(#{list.nth($spacing-size-vars, $i)});
+//   }
+  
+//   .mt-#{$i} {
+//     margin-top : var(#{list.nth($spacing-size-vars, $i)});
+//   }
+
+//   .mb-#{$i} {
+//     margin-bottom : var(#{list.nth($spacing-size-vars, $i)});
+//   }
+
+// }
+
+// h1 {
+//   font-size: var(--font-size-1);
+// }

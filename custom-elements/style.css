@@ -1,0 +1,37 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+test-el {
+    color: red;
+}
+
+test-el:--lded {
+    font-size: 3rem;
+    color: green;
+}
+
+test-el[thingy] {
+    font-weight: bold;
+}
+
+test-el:after {
+    content: attr(data-pass);
+    color: blue;
+}
+
+boot-nav {
+    color: red;
+    background-color: red;
+}
+
+boot-nav li {
+    color: red;
+    background-color: red;
+}
+
+boot-nav:not(:defined) {
+    display: none;
+}

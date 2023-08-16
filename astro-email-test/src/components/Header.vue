@@ -1,0 +1,40 @@
+<script setup>
+import { ref } from 'vue'
+import {basePadding, borderBottom} from '../shared/styles.js'
+
+</script>
+
+<template>
+<!-- / Header -->
+<table
+  class="container header"
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  width="620"
+  style="width: 620px"
+>
+  <tr>
+    <td
+      :style="[basePadding, borderBottom]"
+      align="center"
+    >
+      <a
+        href="website_url"
+        style="
+                          font-size: 30px;
+                          text-decoration: none;
+                          color: #000000;
+                        "
+        ><img
+          src="website_url/assets/img/email/logo.jpg"
+          alt="website_url"
+          border="0"
+        /></a
+      >
+    </td>
+  </tr>
+</table>
+<!-- /// Header -->
+
+</template>

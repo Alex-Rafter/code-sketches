@@ -1,0 +1,9 @@
+<section class="red" v-scope="Inj()" vue:mounted="injMounted">
+    <h2 :class="{'red' : bool}">{{msg}}</h2>
+    <button class="btn btn-secondary" @click="bool = ! bool">{{! bool ? 'Click' : 'Clicked' }}</button>
+    <div>{{bool}}</div>
+    <div v-effect="$el.textContent = store.test"></div>
+</section>
+
+<h1 class="green red" v-scope ref="tst">A New Test</h1>
+<p class="red" id="info-details">Details Details Details!</p>

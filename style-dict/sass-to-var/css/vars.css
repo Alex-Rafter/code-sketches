@@ -1,0 +1,45 @@
+:root {
+  --color-primary-base: #ff0000;
+  --color-primary-light: #fd3f3f;
+  --color-primary-dark: #b10000;
+  --color-secondary-base: #8cff00;
+  --color-secondary-light: #b8ff60;
+  --color-secondary-dark: #559a00;
+  --color-tertiary-base: #ff00ee;
+  --color-tertiary-light: #ff66f5;
+  --color-tertiary-dark: #99008f;
+  /* Here */
+  --font-size-1: 0.75rem;
+  --font-size-2: 1rem;
+  --font-size-3: 2rem;
+  --font-size-4: 3rem;
+  /* Here */
+  --spacing-size-1: 0rem;
+  --spacing-size-2: 0.25rem;
+  --spacing-size-3: 0.5rem;
+  --spacing-size-4: 0.75rem;
+  --spacing-size-5: 1rem;
+  --spacing-size-6: 1.25rem;
+  --spacing-size-7: 1.5rem;
+  --spacing-size-8: 2.75rem;
+  /* Here */
+  --margin-size-1: var(--spacing-size-0);
+  --margin-size-2: var(--spacing-size-1);
+  --margin-size-3: var(--spacing-size-2);
+  --margin-size-4: var(--spacing-size-3);
+  --margin-size-5: var(--spacing-size-4);
+  --margin-size-6: var(--spacing-size-5);
+  --margin-size-7: var(--spacing-size-6);
+  --margin-size-8: var(--spacing-size-7);
+  /* Here */
+  --padding-size-1: var(--spacing-size-0);
+  --padding-size-2: var(--spacing-size-1);
+  --padding-size-3: var(--spacing-size-2);
+  --padding-size-4: var(--spacing-size-3);
+  --padding-size-5: var(--spacing-size-4);
+  --padding-size-6: var(--spacing-size-5);
+  --padding-size-7: var(--spacing-size-6);
+  --padding-size-8: var(--spacing-size-7);
+}
+
+/*# sourceMappingURL=vars.css.map */

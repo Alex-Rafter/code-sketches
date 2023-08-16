@@ -1,0 +1,126 @@
+<template>
+    <!-- / Info Bullets -->
+    <table
+      class="container info-bullets"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      width="100%"
+      align="center"
+    >
+      <tr>
+        <td align="center">
+          <table
+            class="container"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="620"
+            align="center"
+            style="width: 620px"
+          >
+            <tr>
+              <td
+                class="info-bullets__block"
+                style="padding: 30px 30px 15px 30px"
+                align="center"
+              >
+                <table
+                  class="container"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  align="center"
+                >
+                  <tr>
+                    <td class="info-bullets__icon" style="padding: 0 15px 0 0">
+                      <img
+                        src="website_url/assets/img/email/email.png"
+                        alt="Email"
+                      />
+                    </td>
+
+                    <td class="info-bullets__content">
+                      <a
+                        href="#"
+                        style="
+                                          color: #969696;
+                                          font-size: 16px;
+                                          text-decoration: none;
+                                        "
+                        >Get In Touch</a
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+              <td
+                class="info-bullets__block"
+                style="padding: 30px 30px 15px 30px"
+                align="center"
+              >
+                <table
+                  class="container"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  align="center"
+                >
+                  <tr>
+                    <td class="info-bullets__icon" style="padding: 0 15px 0 0">
+                      <img
+                        src="website_url/assets/img/email/telephone.png"
+                        alt="Phone number"
+                      />
+                    </td>
+
+                    <td
+                      class="info-bullets__content"
+                      style="color: #969696; font-size: 16px"
+                    >
+                      000 000 000
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td
+                colspan="2"
+                class="info-bullets__block"
+                style="padding: 30px"
+                align="center"
+              >
+                <table
+                  class="container"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  align="center"
+                >
+                  <tr>
+                    <td class="info-bullets__icon" style="padding: 0 15px 0 0">
+                      <img
+                        src="website_url/assets/img/email/location.png"
+                        alt="Address"
+                      />
+                    </td>
+
+                    <td
+                      class="info-bullets__content"
+                      style="color: #969696; font-size: 16px"
+                    >
+                      Registered Address: New Road, London, NW10 4PF
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!-- /// Info Bullets -->
+</template>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        .duration-1000 {
+            transition: all 3s;
+        }
+
+        .opacity-a {
+            opacity: 0;
+        }
+
+        .opacity-b {
+            opacity: 1;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <script type="module">
+        import { createApp } from 'https://unpkg.com/petite-vue?module'
+        import transition from 'https://cdn.skypack.dev/vue-petite-transition';
+        import {Button} from './js/button.js'
+
+            createApp({Button}).directive('transition',transition).mount()
+</script>
+
+<h1>A Test</h1>
+<hr>
+
+<div v-scope='Button({ text : "Go on click me"})'></div>
+
+<bsk-component v-scope='Button({ text : "Go on click me"})'></bsk-component>
+<bsk-vue v-scope='Button( { text : "Go on click me"} )'></bsk-vue>
+<blue-sky v-scope='Button( { text : "Go on click me"} )'></blue-sky>
+
+<!-- <button v-scope v-transition:enter="duration-1000" v-transition:enter-from="opacity-100" v-transition:enter-to="opacity-0" class="btn btn-primary" @click="inc">{{text}}</button> -->
+
+</body>
+
+</html>

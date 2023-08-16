@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap&text=enter" rel="stylesheet">
+    <title>Ani JS</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0b0b0b;
+            font-family: 'Space Mono', monospace;
+            transition: 400ms;
+        }
+
+        body:has(.animate:not(.fin):hover) {
+            background-color: #1f1f1f;
+        }
+
+        section {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .animate {
+            cursor: pointer;
+            width: 40vh;
+            height: 40vh;
+            background: #2fa949;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 600ms;
+        }
+
+        .animate:not(.fin):hover {
+            filter: brightness(0.95);
+            transform: scale(0.996);
+        }
+
+        .textual {
+            font-size: 3rem;
+            color: #0b0b0b;
+            font-family: sans-serif;
+            opacity: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <script type="module">
+          import { createApp } from 'https://unpkg.com/petite-vue?module'
+          import anime from "https://esm.sh/animejs/lib/anime.es.js"
+
+          function Ani() {
+                return {
+                    animater() {
+
+                        const x = anime({
+                targets: '.animate',
+                backgroundColor: '#FFF',
+                borderRadius: ['0%', '50%'],
+                easing: 'easeInOutQuad',
+                changeComplete: function(anim) {
+                    console.log('completed', anim.animatables[0].target.classList.add("fin"));
+  }
+            });
+
+
+            const y = anime({
+                targets: '.outer',
+                backgroundColor: '#FFF',
+                easing: 'easeInOutQuad',
+                loop : false,
+                direction: 'alternate',
+                // delay : 100,
+                duration : 1600,
+                endDelay: 300,
+            });
+
+
+            const z = anime({
+                targets: '.textual',
+                opacity: 1,
+                easing: 'easeInOutQuad',
+                delay : 800,
+                duration : 2200,
+            });
+
+                }
+          }
+
+        }
+
+        createApp({Ani}).mount('.animate')
+
+
+    </script>
+
+    <section class="outer">
+        <div class="animate" v-scope="Ani()" @click.once="animater">
+        <span class="textual">enter</span></div>
+    </section>
+</body>
+</html>

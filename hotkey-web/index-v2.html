@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Dev Reps</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="hotKeyCarousel" class="carousel slide">
+        <button v-scope @click="store.toggleHints()" class="btn btn-secondary">Click</button>
+        <div class="carousel-inner">
+
+
+            <div v-scope="objsArr" v-for="({name, devTool, hotKey, toggle, togg, tst}, index) in objsArr"
+                class="carousel-item" :class="index == 1 && 'active'">
+                <div class="d-block vw-100" :class="index % 2 ? 'bg-primary' : 'bg-secondary'">
+
+                    <h2 :data-hotkey="hotKey" @click="togg"
+                        class="display-1 text-center d-flex align-items-center justify-content-center"
+                        :class="{'red' : toggle}" style="height: 35vh; margin-top: 15vh;">
+
+                        <!-- {{name}} -->
+
+                        {{toggle}}
+
+                    </h2>
+
+                    <p class="w-100 text-center h2 text-white d-flex justify-content-center"
+                        :class="{'visually-hidden' : ! store.hints}" style="height: 35vh;">{{hotKey}}</p>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <script type="module">
+        import {createApp, reactive} from 'https://unpkg.com/petite-vue?module'
+    import {install} from 'https://cdn.skypack.dev/@github/hotkey';
+
+    const store = reactive({
+    hints: false,
+    toggleHints() {
+      this.hints = ! this.hints
+    }
+  })
+
+    class HotKeyQ {
+      constructor(name, hotKey, devTool) {
+        this.name = name;
+        this.hotKey = hotKey;
+        this.devTool = devTool;
+        this.hash = (Math.random() + 1).toString(36).substring(7);
+        this.toggle = false;
+      }
+
+      // set changeToggle(toggle) {
+      //   this.toggle = ! toggle
+      // }
+
+      // tst() {
+      //   console.log('test')
+      // }
+
+      togg() {
+        this.toggle = !this.toggle
+        console.log(this.toggle);
+      }
+
+      // customListener(event, el) {
+      //   document.addEventListener(event, (e) => {       
+      //   }) 
+      // }
+
+    }
+
+    // function Emmiter() {
+    //   return {
+    //     sendEvent(el) {
+    //       const event = new Event('build', {bubbles: true, cancelable: true})
+    //       el.dispatchEvent(event)
+    //     } 
+    //   }
+    // }
+
+
+    const objsArr = []
+    const jsonStrs = '[["find", "F3", "VS Code"],["find previous", "Shift+F3", "JS"]]'
+    const jsonNowArr = JSON.parse(jsonStrs)
+    jsonNowArr.forEach(arr => objsArr.push(new HotKeyQ(arr[0], arr[1], arr[2], arr[3])))
+
+    createApp({objsArr, store}).mount()
+
+    // Install all the hotkeys on the page
+    setTimeout(() => {
+      for (const el of document.querySelectorAll('[data-hotkey]')) {
+        install(el)
+      }
+    })
+
+
+//     document.addEventListener("DOMContentLoaded", function(){
+//     var element = document.getElementById("hotKeyCarousel");
+//     var myCarousel = new bootstrap.Carousel(element, {interval : 3000, ride : 'carousel'});
+// });
+
+
+
+  </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

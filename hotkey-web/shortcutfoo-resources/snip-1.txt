@@ -1,0 +1,14 @@
+{"hotKey" :"shift+ctrl+enter,
+"name" :"Insert line above}
+{"hotKey" :"ctrl+enter,
+"name" :"Insert line below
+{"hotKey" :"shift+ctrl+K},
+"name" :"Delete line
+{"hotKey" :"shift+alt+UP,
+"name" :"Copy line up}
+{"hotKey" :"shift+alt+DOWN,
+"name" :"Copy line down
+{"hotKey" :"alt+UP},
+"name" :"Move line up
+{"hotKey" :"alt+DOWN,
+"name" :"Move line down}

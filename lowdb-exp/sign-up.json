@@ -1,0 +1,222 @@
+{
+  "forms": [
+    {
+      "node": "root",
+      "child": [
+        {
+          "node": "text",
+          "text": "\n"
+        },
+        {
+          "node": "element",
+          "tag": "form",
+          "attr": {
+            "id": "bskTestForm",
+            "v-scope": "FormLogic()"
+          },
+          "child": [
+            {
+              "node": "text",
+              "text": "\n  "
+            },
+            {
+              "node": "element",
+              "tag": "div",
+              "attr": {
+                "class": "mb-3"
+              },
+              "child": [
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "label",
+                  "attr": {
+                    "for": "exampleInputEmail1",
+                    "class": "form-label"
+                  },
+                  "child": [
+                    {
+                      "node": "text",
+                      "text": "Email address"
+                    }
+                  ]
+                },
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "input",
+                  "attr": {
+                    "type": "email",
+                    "class": "form-control",
+                    "id": "exampleInputEmail1",
+                    "name": "email",
+                    "aria-describedby": "emailHelp"
+                  }
+                },
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "div",
+                  "attr": {
+                    "id": "emailHelp",
+                    "class": "form-text"
+                  },
+                  "child": [
+                    {
+                      "node": "text",
+                      "text": "We'll never share your email with anyone else."
+                    }
+                  ]
+                },
+                {
+                  "node": "text",
+                  "text": "\n  "
+                }
+              ]
+            },
+            {
+              "node": "text",
+              "text": "\n  "
+            },
+            {
+              "node": "element",
+              "tag": "div",
+              "attr": {
+                "class": "mb-3"
+              },
+              "child": [
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "label",
+                  "attr": {
+                    "for": "exampleInputPassword1",
+                    "class": "form-label"
+                  },
+                  "child": [
+                    {
+                      "node": "text",
+                      "text": "Password"
+                    }
+                  ]
+                },
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "input",
+                  "attr": {
+                    "type": "password",
+                    "class": "form-control",
+                    "id": "exampleInputPassword1",
+                    "name": "password"
+                  }
+                },
+                {
+                  "node": "text",
+                  "text": "\n  "
+                }
+              ]
+            },
+            {
+              "node": "text",
+              "text": "\n  "
+            },
+            {
+              "node": "element",
+              "tag": "div",
+              "attr": {
+                "class": [
+                  "mb-3",
+                  "form-check"
+                ]
+              },
+              "child": [
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "input",
+                  "attr": {
+                    "type": "checkbox",
+                    "class": "form-check-input",
+                    "id": "exampleCheck1",
+                    "name": "check"
+                  }
+                },
+                {
+                  "node": "text",
+                  "text": "\n    "
+                },
+                {
+                  "node": "element",
+                  "tag": "label",
+                  "attr": {
+                    "class": "form-check-label",
+                    "for": "exampleCheck1"
+                  },
+                  "child": [
+                    {
+                      "node": "text",
+                      "text": "Check me out"
+                    }
+                  ]
+                },
+                {
+                  "node": "text",
+                  "text": "\n  "
+                }
+              ]
+            },
+            {
+              "node": "text",
+              "text": "\n  "
+            },
+            {
+              "node": "element",
+              "tag": "button",
+              "attr": {
+                "type": "submit",
+                "_atclick.prevent": "submitForm",
+                "class": [
+                  "btn",
+                  "btn-primary"
+                ]
+              },
+              "child": [
+                {
+                  "node": "text",
+                  "text": "Submit"
+                }
+              ]
+            },
+            {
+              "node": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "node": "text",
+          "text": "\n"
+        }
+      ]
+    }
+  ]
+}

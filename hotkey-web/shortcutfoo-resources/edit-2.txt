@@ -1,0 +1,10 @@
+shift+ctrl+]
+Unfold region
+shift+ctrl+[
+Fold region
+ctrl+[
+Outdent line
+ctrl+]
+Indent line
+shift+ctrl+\
+Jump to matching bracket

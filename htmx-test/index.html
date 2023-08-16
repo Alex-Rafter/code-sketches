@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/htmx.org@1.8.2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js"></script>
+
+    <!--   <script src="https://unpkg.com/htmx.org@1.8.2/dist/ext/preload.js"></script> -->
+
+    <!--   <script src="http://instantclick.io/v3.1.0/instantclick.min.js"></script> -->
+    <script>
+        
+        window.addEventListener('load', () => {
+            const x = Array.from(document.querySelectorAll('[preload]'))
+            
+            x.forEach((el) => {
+                el.addEventListener('mouseover', () => {
+                  console.log('preload')
+                  console.log(el)
+                    // htmx.preload(el.getAttribute('preload'))
+                  quicklink.prefetch(el.getAttribute('hx-get'));
+                    // quicklink({
+                    //     urls: [el.getAttribute('hx-get')]
+                    // })
+                })
+            })
+
+            // x.forEach(item => {
+            //     quicklink.prefetch(item.getAttribute('hx-get'));
+            //     console.log(item.getAttribute('hx-get'))
+            // })
+
+            // quicklink.listen();
+            // quicklink.prefetch('inc/ajax.php');
+        });
+    </script>
+    <script type="module">
+        import {createApp, reactive} from 'https://unpkg.com/petite-vue?module'
+    import {AJAX} from './js/ajax.js'
+    import {Test} from './js/test.js'
+    // const mount = () => createApp({AJAX}).mount()
+    const root = document.getElementById("root")
+    // const component = (func) => `<div v-scope="${func}()"></div>`
+
+    // function inject(el, fncComp) {
+    //   el.insertAdjacentHTML("beforeend", component(fncComp))
+    //   mount()
+    // }
+
+
+
+    const store = reactive({
+      root: document.getElementById("root"),
+      mount() {
+        createApp({store, AJAX}).mount()
+      },
+      quickFetch(el) {
+        console.log(el)
+      },
+      component(func) {
+        return `<div v-scope="${func}()"></div>`
+      },
+      injected: [],
+      inject(el, fncComp) {
+        el.insertAdjacentHTML("beforeend", this.component(fncComp))
+        this.mount()
+      },
+      elInjectCount: {AJAX: 0},
+      injectEl(el) {
+        if (this.elInjectCount[el] !== 0) return
+        this.inject(root, el)
+        this.elInjectCount[el]++
+      },
+      async fetchFile(file) {
+
+        let myObject = await fetch(file);
+        let myText = await myObject.text();
+        const isInjectedAlready = this.injected.filter(ref => ref == myText.match(/ref=".*?"/)[0]).length < 1 ? false : true
+        if (isInjectedAlready) return
+        document.getElementById("root").insertAdjacentHTML("beforeend", myText);
+        this.mount()
+        this.injected.push(myText.match(/ref=".*?"/)[0])
+      }
+    })
+
+    createApp({store, AJAX}).mount()
+
+    setTimeout(() => {
+      document.getElementById("root").insertAdjacentHTML("beforeend", `<div v-scope="AJAX()"></div>`)
+      createApp({store, AJAX}).mount()
+    }, 0)
+
+
+    // async function fetchFile(file) {
+    //   let myObject = await fetch(file);
+    //   let myText = await myObject.text();
+    //   document.getElementById("root").insertAdjacentHTML("beforeend", myText);
+    //   createApp({store, AJAX}).mount()
+    // }
+
+    // root.insertAdjacentHTML("beforeend", component(AJAX))
+    // mount()
+    // setTimeout(() => inject(root, AJAX), 3000)
+    // inject(root, AJAX)
+    root.addEventListener('htmx:afterSwap', (evt) => store.mount())
+
+  </script>
+</head>
+
+<body id="root">
+    <h1>Top content</h1>
+<!-- 
+    <div v-scope="{ count: 0 }">
+        {{ count }}
+        <button @click="count++">inc</button>
+    </div> -->
+
+    <!--   <div hx-ext="preload">
+    <a hx-boost="true" preload href="/inc/ajax.php" hx-swap="outerHTML">Update</a>
+    <br>
+    <br>
+    <br>
+    <button preload="mouseover" hx-get="/inc/ajax.php" hx-select="[class]:not(.green)" hx-swap="outerHTML">
+      Click Me
+    </button>
+  </div> -->
+
+    <button preload hx-get="/inc/ajax.php?name=leela" hx-select="[class]:not(.green)" hx-swap="outerHTML" hx-target="#newLocation">
+        Click Me
+    </button>
+
+    <div id="newLocation">I am the new location</div>
+
+
+    <!-- <div v-scope>
+        <button @click="store.injectEl('AJAX')">inc</button>
+
+        <button ref="el" @click="store.fetchFile('inc/ajax.php?name=roe')">
+            inc
+        </button>
+
+        <button @click="store.fetchFile('inc/ajax.php?name=alx')">inc</button>
+    </div> -->
+    <!-- 
+  <div v-scope="{bool : false}">
+    <h2 :class="{'red' : bool}">Test</h2>
+    {{ bool }}
+    <button @click="bool = ! bool">inc</button>
+  </div> -->
+
+    <!--   <section v-scope="{bool : false}">
+    <h2 :class="{'red' : bool}">I was AJAX'd</h2>
+    <button @click="bool = ! bool">Click</button>
+  </section> -->
+
+</body>
+
+</html>

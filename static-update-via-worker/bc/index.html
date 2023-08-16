@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 80vw;
+            margin: 7.5vh auto;
+        }
+
+        .d-none {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Initial Load</h1>
+    <section class="d-none" data-cogcms-ref="123abc" data-cogcms-updated="08.06.23">
+        <!-- CMS Grid Content : START -->
+        <div>
+            <h2>BC</h2>
+        </div>
+        <!-- CMS Grid Content : END -->
+    </section>
+    <script>
+        const clientCountChannel = new BroadcastChannel("client-count");
+        const workerLoadingStatusChannel = new BroadcastChannel("worker-loading-status");
+        workerLoadingStatusChannel.onmessage = ({
+            data
+        }) => {
+            console.log(data.clients)
+            // data.message === "loaded" && broadcastToWorker();
+        }
+
+        function broadcastToWorker() {
+            clientCountChannel.postMessage("add client");
+        }
+    </script>
+    <!-- <script src="/js/index.js"></script> -->
+</body>
+
+</html>

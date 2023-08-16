@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap&text=enter" rel="stylesheet">
+
+    <!-- the props -->
+<link rel="stylesheet" href="https://unpkg.com/open-props"/>
+
+<!-- optional imports that use the props -->
+<link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>
+<link rel="stylesheet" href="https://unpkg.com/open-props/buttons.min.css"/>
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <title>Ani JS</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vw;
+            overflow: hidden;
+            font-family: 'Space Mono', monospace;
+            background-color: var(--blue-2);
+            color: var(--black-2);
+        }
+    </style>
+        <script type="importmap">
+            {
+                "imports": {
+                    "anime" : "https://esm.sh/animejs/lib/anime.es.js",
+                    "preact" : "https://esm.sh/preact",
+                    "hooks" :"https://esm.sh/preact/hooks",
+                    "htm" : "https://esm.sh/htm",
+                    "preact-custom-element" : "https://esm.sh/preact-custom-element"
+                  }
+            }
+        </script>
+    <!-- <script src="/js/ani/import-map.js"></script> -->
+    <script type="module" src="/js/ani/index.js"></script>
+</head>
+
+<body>
+    <ani-one title="a simple animation"></ani-one>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+<?php
+ return array( 'audio', 'button', 'buttons', 'code', 'column', 'columns', 'embed', 'freeform', 'group', 'html', 'list', 'list-item', 'media-text', 'missing', 'more', 'nextpage', 'page-list-item', 'paragraph', 'preformatted', 'pullquote', 'quote', 'separator', 'social-links', 'spacer', 'table', 'text-columns', 'verse', 'video', ); 

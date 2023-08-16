@@ -1,0 +1,10 @@
+[{"hotKey" :"shift+ctrl+]",
+"name" :"Unfold region"},
+{"hotKey" :"shift+ctrl+[",
+"name" :"Fold region"},
+{"hotKey" :"ctrl+[",
+"name" :"Outdent line"},
+{"hotKey" :"ctrl+]",
+"name" :"Indent line"},
+{"hotKey" :"shift+ctrl+\\",
+"name" :"Jump to matching bracket"}]

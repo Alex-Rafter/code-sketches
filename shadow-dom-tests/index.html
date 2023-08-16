@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <my-button name="clicker">
+        <span slot="content">I am the slot content</span>
+    </my-button>
+    <!-- <script type="module" src="/js/index.js"></script> -->
+    <script type="module" src="/js/index.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const elements = document.querySelectorAll('[global-styles]');
+            const stylesheet = document.querySelector('link[rel="stylesheet"]');
+            const stylesheetHref = stylesheet.getAttribute('href');
+
+            elements.forEach(element => {
+                const shadow = element.shadowRoot;
+                const link = document.createElement('link');
+                link.setAttribute('rel', 'stylesheet');
+                // link.setAttribute('href', '/css/styles.css');
+                link.setAttribute('href', stylesheetHref);
+                shadow.appendChild(link);
+            });
+
+        });
+    </script>
+    <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+            // const elements = document.querySelectorAll('[global-styles]');
+            const stylesheet = document.querySelector('link[rel="stylesheet"]');
+            window.stylesheetHref = stylesheet.getAttribute('href');
+
+        });
+    </script>
+</body>
+</html>
