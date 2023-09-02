@@ -1,0 +1,20 @@
+{
+  "name": "shiny-truth-90e0",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/worker.js",
+  "scripts": {
+    "build": "esbuild  ./src/worker.js --outdir=dist --allow-overwrite --bundle --sourcemap  --watch",
+    "dev": "miniflare --watch --debug",
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.2",
+    "miniflare": "^3.20230814.1",
+    "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.17"
+  }
+}
