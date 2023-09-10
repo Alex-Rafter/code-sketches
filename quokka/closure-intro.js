@@ -1,4 +1,6 @@
 // Messing about with little closure exercises, after reading closure into in Eloquent JS Book.
+// Initial exercise was taken from Eloquent JS.
+// For the rest, i asked chatgpt to give me a bunch of closure exercises, and these are my workings for them.
 
 // 1 Counter Function
 function createCounter() {
