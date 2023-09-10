@@ -33,7 +33,10 @@ console.log(msg('hello'))
 
 function arrayAccumulator() {
     const arr = []
-    return arg => arr.push(arg) && arr
+    return arg => {
+        arr.push(arg)
+        return arr
+    }
 }
 
 const accumulator = arrayAccumulator()
@@ -47,16 +50,28 @@ function createEmitter() {
     const eventListeners = {}
     return {
         on(event, cb) {
-            eventListeners[event] = cb
+
+            if (!eventListeners[event]) {
+                eventListeners[event] = []
+            }
+
+            eventListeners[event].push(cb)
+
         },
-        emit(e) {
-            eventListeners[e]()
+        emit(event) {
+
+            if (eventListeners[event]) {
+                eventListeners[event].forEach(cb => cb())
+            }
+
         }
     }
 }
 
 const myEmitter = createEmitter()
 myEmitter.on('click', () => console.log('test'))
+myEmitter.on('click', () => console.log('test 2'))
+myEmitter.on('click', () => console.log('test 3'))
 myEmitter.on('hover', () => console.log('hovered'))
 myEmitter.emit('click')
 myEmitter.emit('hover')
@@ -66,17 +81,11 @@ myEmitter.emit('hover')
 function rateLimiter(cb, time) {
     let blockFunc = false
 
-    function unfreezeAfterLimit() {
-        setTimeout(() => {
-            blockFunc = false
-        }, time)
-    }
-
     return () => {
         if (!blockFunc) {
             cb()
             blockFunc = true
-            unfreezeAfterLimit()
+            setTimeout(() => blockFunc = false, time)
         }
     }
 
