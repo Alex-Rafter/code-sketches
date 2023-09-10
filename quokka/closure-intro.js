@@ -30,4 +30,35 @@ function createStringAppender(str) {
 const msg = createStringAppender('world!')
 console.log(msg('hello'))
 
-// 4 Array
+// 4 Array accumulator
+
+function arrayAccumulator() {
+    let arr = []
+    return arg => arr.push(arg) && arr
+}
+
+const accumulator = arrayAccumulator()
+console.log(accumulator(1))
+console.log(accumulator(2))
+console.log(accumulator(7))
+
+
+// 5 Event Emitter
+
+function createEmitter() {
+
+    const
+
+    return {
+        eventListeners: [],
+        on(event, cb) {
+            this.eventListeners.push({ event: cb })
+        },
+        emit(e) {
+            Object.keys(this.eventListeners).find(e)
+        }
+    }
+}
+
+const emit = createEmitter()
+console.log(emit.on("click", () => console.log("test")))
