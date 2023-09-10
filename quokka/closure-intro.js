@@ -46,19 +46,57 @@ console.log(accumulator(7))
 // 5 Event Emitter
 
 function createEmitter() {
-
-    const
-
+    let eventListeners = {}
     return {
-        eventListeners: [],
         on(event, cb) {
-            this.eventListeners.push({ event: cb })
+            eventListeners[event] = cb
         },
         emit(e) {
-            Object.keys(this.eventListeners).find(e)
+            eventListeners[e]()
         }
     }
 }
 
-const emit = createEmitter()
-console.log(emit.on("click", () => console.log("test")))
+const myEmitter = createEmitter()
+myEmitter.on("click", () => console.log("test"))
+myEmitter.on("hover", () => console.log("hovered"))
+myEmitter.emit("click")
+myEmitter.emit("hover")
+
+// Rate Limiter
+
+function rateLimiter(cb, time) {
+    let x = false
+    setTimeout(() => {
+        x = true
+        console.log("testt", x)
+    }, time)
+    return () => x && cb()
+    // setTimeout()
+    // return () => cb()
+    // let x = true
+    // const x = () => () => cb()
+    // setTimeout(() => {
+    //     y()
+    // }, time)
+    // function y() {
+    //     return () => cb()
+    // }
+    // if (x = false) {
+    //     return () => cb()
+    // }
+    // while (x = true) { }
+
+}
+
+const limitedFunc = rateLimiter(() => console.log("limited click"), 1000)
+limitedFunc()
+limitedFunc()
+limitedFunc()
+limitedFunc()
+limitedFunc()
+
+
+
+
+
