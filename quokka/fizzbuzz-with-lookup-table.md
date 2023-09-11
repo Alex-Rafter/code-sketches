@@ -10,7 +10,7 @@ I'm reading Eloquent JavaScript at the moment as part of my current learning pro
 
 ### Version One
 
-I don't like version one at all really. It has to do with the verbosity of using the multiple if/else statments. Yes, it avoid the iteration inside the loop in version two but its definitley not my preference still...
+I don't like version one at all really. It has to do with the verbosity of using the multiple if/else statments. Yes, it avoids the iteration inside the loop in version two but its definitley not my preference still...
 
 
 ```js
@@ -34,7 +34,7 @@ for (let i = 1; i < 100; i++) {
 
 ### Version Two
 
-Ahhh version two, so much nicer to read! I'm using a lookup table here.
+Version two seems much nicer to read to me! I'm using an object here as a lookup table.
 
 ```js
 const obj = {
