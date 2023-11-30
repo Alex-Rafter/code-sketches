@@ -1,0 +1,26 @@
+// Import puppeteer
+import puppeteer from 'puppeteer';
+
+(async () => {
+  // Launch the browser
+  const browser = await puppeteer.launch();
+
+  // Create a page
+  const page = await browser.newPage();
+
+  // Go to your site
+  await page.goto('https://boilerplate.dev.cogplatform.co.uk/');
+
+  const element = await page.waitForSelector('bsk-carousel-banner');
+
+  // Extract the HTML content of the element
+  const elementHTML = await page.evaluate(el => el.outerHTML, element);
+
+  console.log(elementHTML); // This will log the HTML content of the selected element
+
+
+  // const content = await page.content()
+
+  // Close browser.
+  await browser.close();
+})();

@@ -4,11 +4,16 @@
 
 // const currentBranch = await $`git branch --show-current`;
 
-function main() {
+async function main() {
 
     const branches = ['main', 'uat', 'dev'];
-    const x = async (b) => await $`git co ${b}`
-    branches.forEach(x)
+    // const x = async (b) => await $`git co ${b}`
+    // const currentBranch = await $`git branch --show-current`;
+    // branches.forEach(x)
+    for (const branch of branches) {
+        // await x(branch)
+        await $`git co ${branch}`
+    }
 
 };
 

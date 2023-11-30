@@ -1,0 +1,21 @@
+{
+  "name": "puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "postcss": "^8.4.31",
+    "postcss-safe-parser": "^7.0.0",
+    "puppeteer": "^21.3.8",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "purgecss": "^5.0.0"
+  }
+}
