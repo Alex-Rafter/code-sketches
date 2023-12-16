@@ -59,22 +59,10 @@
         }
 
         placeSlotContent() {
-            try {
-                const slots = [...this.base.querySelectorAll('slot')]
-                const slotContent = [...this.base.parentElement.querySelectorAll('[slot]')]
-
-                if (slots.length > 0 && slotContent.length > 0) {
-                    slotContent.forEach(el => {
-                        const matchingSlot = slots.find(slot => el.getAttribute('slot') === slot.getAttribute('name'));
-                        if (matchingSlot) {
-                            matchingSlot.appendChild(el);
-                        } else {
-                            console.error(`No matching slot found for element with slot name: ${el.getAttribute('slot')}`);
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('An error occurred while placing slot content:', error);
+            const slots = [...this.base.querySelectorAll('slot')]
+            const slotContent = [...this.base.parentElement.querySelectorAll('[slot]')]
+            if (slots.length > 0 && slotContent.length > 0) {
+                slotContent.forEach(el => slots.find(slot => el.getAttribute('slot') === slot.getAttribute('name')).appendChild(el))
             }
         }
 
