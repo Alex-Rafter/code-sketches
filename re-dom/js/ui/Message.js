@@ -1,6 +1,6 @@
-import { Component } from 'preact'
+import { Component } from 'base'
 import { html } from 'htm'
-import { placeSlotContent } from '../utils/place-slot-content.js';
+
 
 export class Message extends Component {
     constructor() {
@@ -8,10 +8,6 @@ export class Message extends Component {
         this.state = {
             message: 'World'
         };
-    }
-
-    componentDidMount() {
-        placeSlotContent.bind(this)
     }
 
     render({ message }) {
