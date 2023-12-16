@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 97vh;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <hello-world message="you Laptop">
+            <span slot="child">
+                <p>I am child content</p>
+            </span>
+        </hello-world>
+    </div>
+
+</body>
+
+<!-- <script type="module">
+    import { h, render } from 'https://esm.sh/preact';
+    import { default as preactHyperscript } from 'https://esm.sh/preact-hyperscript';
+    const { div, h1, h2, h3, button, ul, li } = preactHyperscript
+    const helloWorld = h1('.tester', 'Hello World!');
+    render(helloWorld, document.getElementById('root'));
+  </script> -->
+
+<!-- <script type="module">
+    import { h, render } from 'https://esm.sh/preact';
+    const helloWorld = h('h1', {class : 'tester'}, 'Hello World!');
+    render(helloWorld, document.getElementById('root'));
+  </script> -->
+
+<script type="module">
+    import { html, render, Component } from 'https://unpkg.com/htm/preact/standalone.module.js'
+    import register from 'https://unpkg.com/preact-custom-element?module'
+
+    class Message extends Component {
+        constructor() {
+            super();
+            this.state = {
+                message: 'World'
+            };
+        }
+
+        componentDidMount() {
+            console.log('mounted', this.base);
+            this.placeSlotContent()
+        }
+
+        placeSlotContent() {
+            try {
+                const slots = [...this.base.querySelectorAll('slot')]
+                const slotContent = [...this.base.parentElement.querySelectorAll('[slot]')]
+
+                if (slots.length > 0 && slotContent.length > 0) {
+                    slotContent.forEach(el => {
+                        const matchingSlot = slots.find(slot => el.getAttribute('slot') === slot.getAttribute('name'));
+                        if (matchingSlot) {
+                            matchingSlot.appendChild(el);
+                        } else {
+                            console.error(`No matching slot found for element with slot name: ${el.getAttribute('slot')}`);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('An error occurred while placing slot content:', error);
+            }
+        }
+
+        render({ message }) {
+            return html`
+            <div>
+                <h1>Hello ${message}!</h1>
+                <slot name="child"></slot>
+            </div>`;
+        }
+    }
+
+    // const helloWorld = ({message}) => html`<${Message} message="${message}" />`;
+    register(Message, 'hello-world', ['message'], { shadow: false });
+    // render(html`<${helloWorld}/>`, document.getElementById('root'));
+  </script>
+
+<!-- <script src="https://unpkg.com/mithril/mithril.js"></script> -->
+
+
+<!-- <script type="module">
+    import { el, mount } from "https://redom.js.org/redom.es.min.js";
+    import htm from 'https://unpkg.com/htm?module'
+    const html = htm.bind(el);
+
+    const Hello = () => html`<div>Hello!</div>`;
+    const App = () => html`<div class="container"><${Hello} /></div>`;
+
+    mount(document.body, html`<${App} />`);
+</script> -->
+
+<!-- <script type="module">
+    import { el, mount, setAttr  } from "https://redom.js.org/redom.es.min.js";
+
+    class Hello {
+        constructor() {
+            this.el = el("h1.test", "Hello world!");
+        }
+        update(data) {
+            this.el.textContent = "Hello " + data + "!";
+        }
+    }
+
+    const x = new Hello();
+    setTimeout(() => x.update("people"), 2000);
+    setTimeout(() => {
+        setAttr(x, {
+        style: { color: 'red' },
+        className: 'hello'
+        });
+    }, 4000);
+
+    mount(document.body, x);
+</script> -->
+<!-- <script type="module">
+    import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.7.min.js"
+    import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.5.3.min.js"
+
+    const {a, div, li, p, ul} = van.tags
+
+    const Hello = () => div(
+    p("👋Hello"),
+    ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+    ),
+    )
+
+    van.add(document.body, Hello())
+
+    </script> -->
+
+</html>
