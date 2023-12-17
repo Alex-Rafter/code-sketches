@@ -5,6 +5,7 @@
 // import { signal } from "@preact/signals";
 // import { define } from 'preactement';
 import { Button } from './ui/Button.js';
+import { Message } from './ui/Message.js';
 
 // const count = signal(0);
 

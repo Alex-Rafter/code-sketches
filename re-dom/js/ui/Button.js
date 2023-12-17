@@ -1,4 +1,6 @@
 import { render } from 'preact'
+import { Component } from 'base'
+
 import { html } from 'htm'
 import { useEffect } from 'preact/hooks'
 import register from 'preact-custom-element'
@@ -25,6 +27,12 @@ const CountOutput = () => {
 
 export const Button = () => {
     const value = count.value;
+    const increment = () => {
+        console.log('incrementing');
+        count.value++;
+        console.log(count.value);
+    };
+
     useEffect(
         () => {
             console.log("mounted");
@@ -39,7 +47,7 @@ export const Button = () => {
     return html`
     <div>
       <p>Count: ${value}</p>
-      <button onClick=${incrementCount}>click me</button>
+      <button onClick=${increment}>click me</button>
     </div>`;
 }
 
@@ -60,14 +68,7 @@ export const Button = () => {
 
 //     }
 
-//     increment = () => {
-//         console.log('incrementing');
-//         count.value++;
-//         console.log(count.value);
-//     };
-
-
-//     render({ message }) {
+//     render() {
 //         return html`
 //         <style>
 //             state-button {
@@ -102,7 +103,7 @@ export const Button = () => {
 //             }
 //         </style>
 //         <p>${this.state.value}</p>
-//         <button onClick="${this.increment}">Click me to update state</button>
+//         <button onClick="${incrementCount}">Click me to update state</button>
 //         `;
 //     }
 // }
