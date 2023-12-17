@@ -12,9 +12,12 @@
             "preact/": "https://esm.sh/preact@10.19.2/",
             "htm": "https://esm.sh/htm@3.1.1/preact?external=preact",
             "preact-custom-element": "https://unpkg.com/preact-custom-element?module",
+            "@preact/signals": "https://esm.sh/@preact/signals",
+            "preactement" : "https://esm.sh/preactement",
             "ui/" : "/js/ui/",
             "base" : "/js/ui/Base.js",
-            "store" : "/js/store/index.js"
+            "store" : "/js/store/index.js",
+            "signals" : "/js/store/signals.js"
           }
         }
       </script>
@@ -23,17 +26,26 @@
 
 <body>
   <main>
+    <x-greeting name="computer"></x-greeting>
     <style>
       .container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        width: 100vw;
       }
     </style>
     <div class="container">
       <state-button></state-button>
     </div>
+    <div class="container">
+      <p>Below is the count output custom element</p>
+      <count-output></count-output>
+      <count-output></count-output>
+      <count-output></count-output>
+    </div>
+
     <!-- <hello-world message="you Laptop">
       <span slot="child">
         <p>I am child content</p>
