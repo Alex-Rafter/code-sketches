@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="importmap">
-        {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="importmap">
+    {
           "imports": {
             "preact": "https://esm.sh/preact@10.19.2",
             "preact/": "https://esm.sh/preact@10.19.2/",
             "htm": "https://esm.sh/htm@3.1.1/preact?external=preact",
             "preact-custom-element": "https://unpkg.com/preact-custom-element?module",
             "ui/" : "/js/ui/",
-            "utils/" : "/js/utils/",
-            "base" : "/js/ui/Base.js"
+            "base" : "/js/ui/Base.js",
+            "store" : "/js/store/index.js"
           }
         }
       </script>
@@ -22,14 +22,25 @@
 </head>
 
 <body>
-    <main>
-        <hello-world message="you Laptop">
-            <span slot="child">
-                <p>I am child content</p>
-            </span>
-        </hello-world>
-    </main>
-    <script type="module" src="/js/index.js"></script>
+  <main>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+    <div class="container">
+      <state-button></state-button>
+    </div>
+    <!-- <hello-world message="you Laptop">
+      <span slot="child">
+        <p>I am child content</p>
+      </span>
+    </hello-world> -->
+  </main>
+  <script type="module" src="/js/index.js"></script>
 </body>
 
 </html>

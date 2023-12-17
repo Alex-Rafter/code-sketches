@@ -1,5 +1,6 @@
 import { Component } from 'base'
 import { html } from 'htm'
+import register from 'preact-custom-element'
 
 
 export class Message extends Component {
@@ -23,3 +24,6 @@ export class Message extends Component {
         </div>`;
     }
 }
+
+
+register(Message, 'hello-world', ['message'], { shadow: false });

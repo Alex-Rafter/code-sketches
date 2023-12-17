@@ -1,4 +1,3 @@
-import register from 'preact-custom-element'
 import { Message } from 'ui/Message.js'
+import { Button } from 'ui/Button.js'
 
-register(Message, 'hello-world', ['message'], { shadow: false });
