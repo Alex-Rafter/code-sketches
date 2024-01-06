@@ -1,5 +1,8 @@
 // Calling prototype methods of same name as object's
 // Using super to do this with multiple levels of inheritance
+// Only needed when using methods of the same name.
+// The method call on inherited methods works with both super
+// and older approach when the method names aren't the same.
 const action = {
     type: 'actions',
     makeNoise() {
@@ -8,6 +11,7 @@ const action = {
 }
 
 const dog = {
+    type: 'animal',
     makeNoise() {
         // Super works regardless of levels inheritance
         return super.makeNoise()
@@ -17,5 +21,15 @@ const dog = {
 }
 
 Object.setPrototypeOf(dog, action)
-const lab = Object.create(dog)
+const lab = {
+    type() {
+        return super.type
+    }
+}
+
+Object.setPrototypeOf(lab, dog)
+
+// Object.create(dog)
+
 console.log(lab.makeNoise())
+console.log(lab.type())
