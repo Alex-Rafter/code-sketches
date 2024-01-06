@@ -28,8 +28,6 @@ const lab = {
 }
 
 Object.setPrototypeOf(lab, dog)
-
 // Object.create(dog)
-
 console.log(lab.makeNoise())
 console.log(lab.type())
