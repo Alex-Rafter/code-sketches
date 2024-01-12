@@ -20,15 +20,27 @@ const dog = {
     }
 }
 
+const unrelatedObj = {
+    name: 'NA',
+    message() {
+        return `I am unrelated. name is : ${this.name}`
+    }
+}
+
 Object.setPrototypeOf(dog, action)
 const lab = {
+    name: 'rover',
     type() {
         return super.type
+    },
+    anothersMessage() {
+        return unrelatedObj.message.call(this)
     }
 }
 
 Object.setPrototypeOf(lab, dog)
 // Object.create(dog)
-console.log(lab.makeNoise())
-console.log(lab.type())
-console.log(lab.homeObject)
+// console.log(lab.makeNoise())
+// console.log(lab.type())
+console.log(unrelatedObj.message())
+console.log(lab.anothersMessage())
