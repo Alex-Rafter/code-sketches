@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <ul id="list">
+        <li>just stuff 1</li>
+        <li>just stuff 2</li>
+        <li>just stuff 3</li>
+        <li>just stuff 4</li>
+        <li>just stuff 5</li>
+        <li>just stuff 6</li>
+        <li>just stuff 7</li>
+        <li>just stuff 8</li>
+        <li>just stuff 9</li>
+        <li>just stuff 10</li>
+    </ul>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => main());
+
+        function main() {
+            const list = document.getElementById('list');
+            const listItems = list.querySelectorAll('li');
+            window.tracking = new WeakMap();
+            listItems.forEach(item => {
+                tracking.set(item, false);
+
+                item.addEventListener('mouseover', () => {
+                    if (tracking.has(item)) {
+                        console.log('true');
+                        item.style.color = 'red';
+                        tracking.set(item, true);
+                    } else {
+                        console.log('false');
+                    }
+                });
+                // item.addEventListener('click', () => {
+                //     if (tracking.get(item)) {
+                //         item.style.textDecoration = 'none';
+                //         tracking.set(item, false);
+                //     } else {
+                //         item.style.textDecoration = 'line-through';
+                //         tracking.set(item, true);
+                //     }
+                // });
+
+            });
+            // console.log(tracking.get(listItems[0]));
+        }
+    </script>
+</body>
+
+</html>
