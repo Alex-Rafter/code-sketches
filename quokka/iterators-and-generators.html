@@ -8,19 +8,17 @@
     <script type="importmap">
         {
             "imports": {
-                "anime" : "https://esm.sh/animejs/lib/anime.es.js",
-                "preact" : "https://esm.sh/preact",
-                "hooks" :"https://esm.sh/preact/hooks",
-                "htm" : "https://esm.sh/htm",
-                "preact-custom-element" : "https://esm.sh/preact-custom-element"
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+                "petite-vue": "https://unpkg.com/petite-vue?module"
               }
         }
     </script>
+    <script type="module" src="./iterators-and-generators.js"></script>
 </head>
 
 <body>
-    <ar-fieldset title="I am some text"></ar-fieldset>
-    <script type="module" src="./iterators-and-generators.js"></script>
+    <div id="root" v-scope="Fieldset()"></div>
+    <!-- <root-node id="root"></root-node> -->
 </body>
 
 </html>
