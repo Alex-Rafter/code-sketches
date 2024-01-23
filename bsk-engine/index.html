@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <bsk-example></bsk-example>
+  <bsk-example message="really last thing!"></bsk-example>
 
   <!-- <template bsk-element="bsk-example">
     <style>
@@ -37,13 +37,19 @@
       const bskExample = {
         message : "Hello World",
         $template : /*html*/`
-        <h1>Template Example Baby!</h1>`,
+        <h1>{{message || 'Template Example Baby!'}}</h1>`,
     }
 
 
     editAndPass({bskExample})
 
     function editAndPass(components) {
+      // messing about with checking if custom element exists
+      console.log(customElements.get("bsk-example"));
+      if (customElements.get("bsk-example")) {
+        return
+      }
+
       const obj = components[Object.keys(components)[0]];
       const toKebabCase = (str) => {
         return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
