@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="importmap">
+    {
+          "imports": {
+            "autoGenerateBskElement": "/js/bluesky-elements/base/auto-generate-element.js",
+            "petite-vue" : "https://unpkg.com/petite-vue?module"
+          }
+        }
+      </script>
+
+  </script>
+</head>
+
+<body>
+  <bsk-example></bsk-example>
+
+  <template bsk-element="bsk-example">
+    <style>
+      h1 {
+        color: red;
+      }
+    </style>
+    <h1>Example</h1>
+    <p>tester</p>
+  </template>
+  <script type="module">
+    import { autoGenerateBskElement }  from "autoGenerateBskElement";
+
+      const bskExample = {
+        message : "Hello World",
+        $template : `<h1>Template Example</h1>`,
+    }
+
+    const components = {
+      bskExample
+    }
+
+    editAndPass(components)
+
+    function editAndPass(components) {
+      const obj = components[Object.keys(components)[0]];
+      console.log(obj);
+      const toKebabCase = (str) => {
+        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+      };
+      console.log(Object.values(components));
+    obj.tagName = toKebabCase(Object.keys(components)[0]);
+    // console.log(tagName);
+      autoGenerateBskElement(obj);
+    }
+
+
+    // const tagName = toKebabCase(Object.keys(arg)[0])
+    // console.log(Object.keys(arg)[0]);
+    // console.log(`    autoGenerateBskElements([{${tagName}, ${arg}}]);`);
+
+    // autoGenerateBskElement({arg});
+
+
+
+    // console.log(document.querySelector("[bsk-example]"));
+
+    // generate([{tagName, stateObjectAbove}])
+  </script>
+</body>
+
+</html>
