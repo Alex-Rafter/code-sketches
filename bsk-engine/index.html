@@ -20,7 +20,7 @@
 <body>
   <bsk-example></bsk-example>
 
-  <template bsk-element="bsk-example">
+  <!-- <template bsk-element="bsk-example">
     <style>
       h1 {
         color: red;
@@ -28,30 +28,27 @@
     </style>
     <h1>Example</h1>
     <p>tester</p>
-  </template>
+  </template> -->
   <script type="module">
     import { autoGenerateBskElement }  from "autoGenerateBskElement";
 
+    // const html = /*html*/ `<p>Passing to state obj</p>`
+
       const bskExample = {
         message : "Hello World",
-        $template : `<h1>Template Example</h1>`,
+        $template : /*html*/`
+        <h1>Template Example Baby!</h1>`,
     }
 
-    const components = {
-      bskExample
-    }
 
-    editAndPass(components)
+    editAndPass({bskExample})
 
     function editAndPass(components) {
       const obj = components[Object.keys(components)[0]];
-      console.log(obj);
       const toKebabCase = (str) => {
         return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
       };
-      console.log(Object.values(components));
-    obj.tagName = toKebabCase(Object.keys(components)[0]);
-    // console.log(tagName);
+      obj.tagName = toKebabCase(Object.keys(components)[0]);
       autoGenerateBskElement(obj);
     }
 
