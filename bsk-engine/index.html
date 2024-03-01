@@ -15,10 +15,58 @@
       </script>
 
   </script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-  <bsk-example message="really last thing!"></bsk-example>
+  <!-- <bsk-example message="really last thing!"></bsk-example> -->
+  <bsk-panel v-cloak>
+    <span slot="panel">
+      <div class="anchor-link-group bg-light container-wrapper-fluid text-align-center">
+
+        <div class="container">
+
+          <div class="row c">
+            <div class="col-md-12 column">
+              <div>
+
+
+
+
+                <ul class="link-group">
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                  <li class="link-group__item">
+                    <a class="link-group__link" href="/">Anchor Link</a>
+                  </li>
+                </ul>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </span>
+  </bsk-panel>
 
   <!-- <template bsk-element="bsk-example">
     <style>
@@ -39,11 +87,42 @@
       const bskExample = {
         message : "Hello World",
         $template : /*html*/`
-        <h1>{{message || 'Template Example Baby!'}}</h1>`,
+        <div>
+
+        </div>`,
+    }
+
+    const bskPanel = {
+      linksData : null,
+      init (el) {
+        console.log('bsk-panel init', el);
+        this.linksData = this.queryAndCreateThisProps(el)
+        el.style.display = 'block'
+        el.querySelector(`[slot="panel"]`).remove()
+      },
+      queryAndCreateThisProps(el) {
+        const linksData = [];
+        const linkGroup = el.querySelector('ul.link-group');
+        const links = linkGroup.querySelectorAll('li');
+
+        links.forEach(link => {
+          const text = link.textContent.trim();
+          const href = link.querySelector('a').href;
+          linksData.push({ text, href });
+        });
+        return linksData
+      },
+      $template : /*html*/`
+        <div @vue:mounted="init($el)" :style="display: none;">
+          <slot name="panel"></slot>
+          <ul>
+            <li v-for="obj in linksData">{{obj.text}}</li>
+          </ul>
+        </div>`,
     }
 
 
-    editAndPass({bskExample})
+    editAndPass({bskPanel})
 
     function editAndPass(components) {
       // messing about with checking if custom element exists

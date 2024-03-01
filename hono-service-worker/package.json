@@ -1,0 +1,22 @@
+{
+  "name": "hono-service-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/sw.js --bundle --outfile=sw.js",
+    "watch": "esbuild src/sw.js --bundle --outfile=sw.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hono": "^4.0.8",
+    "itty-router": "^4.0.27",
+    "localforage": "^1.10.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.20.1"
+  }
+}
