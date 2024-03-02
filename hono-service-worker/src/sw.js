@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { html, raw } from 'hono/html'
+import { html } from 'hono/html'
 import { Main, Layout, Article } from './templates/main.js'
 const app = new Hono();
 

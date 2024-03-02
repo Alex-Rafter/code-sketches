@@ -1,4 +1,4 @@
-import { html, raw } from 'hono/html'
+import { html } from 'hono/html'
 
 const GenericHeadTags = ({ title, description } = {}) => {
     return html`
@@ -49,8 +49,6 @@ const Main = (content) => {
         </html>
     `
 }
-
-
 
 
 
