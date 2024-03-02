@@ -1,4 +1,8 @@
 (() => {
+  var __freeze = Object.freeze;
+  var __defProp = Object.defineProperty;
+  var __template = (cooked, raw2) => __freeze(__defProp(cooked, "raw", { value: __freeze(raw2 || cooked.slice()) }));
+
   // node_modules/hono/dist/utils/html.js
   var HtmlEscapedCallbackPhase = {
     Stringify: 1,
@@ -1260,7 +1264,7 @@
       this.routes = { [METHOD_NAME_ALL]: {} };
     }
     add(method, path, handler) {
-      var _a;
+      var _a2;
       const { middleware, routes } = this;
       if (!middleware || !routes) {
         throw new Error(MESSAGE_MATCHER_IS_ALREADY_BUILT);
@@ -1282,11 +1286,11 @@
         const re = buildWildcardRegExp(path);
         if (method === METHOD_NAME_ALL) {
           Object.keys(middleware).forEach((m) => {
-            var _a2;
-            (_a2 = middleware[m])[path] || (_a2[path] = findMiddleware(middleware[m], path) || findMiddleware(middleware[METHOD_NAME_ALL], path) || []);
+            var _a22;
+            (_a22 = middleware[m])[path] || (_a22[path] = findMiddleware(middleware[m], path) || findMiddleware(middleware[METHOD_NAME_ALL], path) || []);
           });
         } else {
-          (_a = middleware[method])[path] || (_a[path] = findMiddleware(middleware[method], path) || findMiddleware(middleware[METHOD_NAME_ALL], path) || []);
+          (_a2 = middleware[method])[path] || (_a2[path] = findMiddleware(middleware[method], path) || findMiddleware(middleware[METHOD_NAME_ALL], path) || []);
         }
         Object.keys(middleware).forEach((m) => {
           if (method === METHOD_NAME_ALL || method === m) {
@@ -1308,9 +1312,9 @@
       for (let i = 0, len = paths.length; i < len; i++) {
         const path2 = paths[i];
         Object.keys(routes).forEach((m) => {
-          var _a2;
+          var _a22;
           if (method === METHOD_NAME_ALL || method === m) {
-            (_a2 = routes[m])[path2] || (_a2[path2] = [
+            (_a22 = routes[m])[path2] || (_a22[path2] = [
               ...findMiddleware(middleware[m], path2) || findMiddleware(middleware[METHOD_NAME_ALL], path2) || []
             ]);
             routes[m][path2].push([handler, paramCount - len + i + 1]);
@@ -1634,29 +1638,76 @@
     return buffer.length === 1 ? raw(buffer[0]) : stringBufferToString(buffer);
   };
 
+  // src/templates/main.js
+  var GenericHeadTags = ({ title, description } = {}) => {
+    return html`
+        <title>${title || "this is a default title"}</title>
+        <meta name="description" content="${description || "This is a description"}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color : red;
+            }
+            article {
+                cursor: pointer;
+            }
+            .blue {
+                color: blue;
+            }
+
+            .red {
+                color: red;
+            }
+        </style>
+    `;
+  };
+  var _a;
+  var Article = () => {
+    return html(_a || (_a = __template([`
+    <script type="module">
+    import { createApp } from 'https://unpkg.com/petite-vue?module'
+    createApp({toggle : false,init(el) {console.log("init", el)}}).mount('#clickArticle')
+    <\/script>
+    <article id="clickArticle"  @vue:mounted="init($el)" :class="(toggle) ? 'blue' : 'red'" style="width: 100vw;height: 50vh;" @click="toggle = !toggle">
+        <h2>Some Content</h2>
+        <p>Some more content</p>
+    </article>
+    `])));
+  };
+  var Main = (content) => {
+    return html`
+        <html>
+            <head>
+                ${GenericHeadTags({ title: "My Little Hono App", description: "Tinkering is fun!" })}
+             </head>
+            <body id="app">
+                <h1>Here I am Testing The Newest Middleware from Main Template</h1>
+                ${content}
+            </body>
+        </html>
+    `;
+  };
+
   // src/sw.js
   var app = new Hono2();
   app.use("*", async (c, next) => {
+    c.setRenderer((content) => c.html(Main(content)));
+    await next();
+  });
+  app.use("*", async (c, next) => {
     c.setRenderer((content) => {
-      return c.html(
-        /*html*/
-        `<html>
-            <head>
-            <title>Experiment</title>
-          </head>
-                <body>
-                    <h1>Testing New Middleware</h1>
-                    ${content}
-                </body>
-            </html>
-            `
-      );
+      return c.html(Main(content));
     });
     await next();
   });
+  var Title = () => {
+    return html`<h1>Hello! Hono Again!</h1>`;
+  };
+  var Span = (content = []) => {
+    return html`<span class="new-test">${content[0]}${content[1]}</span>`;
+  };
   app.get("/", (c) => {
-    const title = html`<h1>Hello! Hono Again!</h1>`;
-    return c.render(title);
+    return c.render(Span([Title(), Article()]));
   });
   app.get("/api/data", async (c) => {
     return new Response(JSON.stringify({ data: "Some Hono API data" }), { status: 200, headers: { "Content-Type": "application/json" } });
@@ -1667,6 +1718,13 @@
   app.all("*", () => new Response("Not found", { status: 404 }));
   self.addEventListener("fetch", (event) => {
     console.log("Fetch event", event.request.url);
-    event.respondWith(app.fetch(event.request));
+    const url = new URL(event.request.url);
+    if (url.href.includes("petite-vue")) {
+      console.log("Skipping", url.href);
+      return;
+    } else {
+      console.log("Handling", url.href);
+      event.respondWith(app.fetch(event.request));
+    }
   });
 })();
