@@ -2,8 +2,11 @@ import { Hono } from 'https://esm.sh/hono';
 import { logger } from 'https://esm.sh/hono/logger';
 import { html } from 'https://esm.sh/hono/html';
 import { Main } from './main.js';
+import { Article } from './article.js';
 
 const app = new Hono()
+
+// app.use(logger())
 
 app.use('*', async (c, next) => {
     c.setRenderer(content => c.html(Main(content)))
@@ -25,14 +28,13 @@ app.get('/', (c) => {
     return c.render(Nav)
 })
 app.get('/about', (c) => {
-    return c.render('This is the About Page.')
+    return c.render(Article())
 })
 
 // Function to handle client-side navigation
 // Function to handle client-side navigation
 const navigate = () => {
     const path = decodeURI(window.location.hash.substring(1));
-    console.log('Navigating to:', path);
     const url = new URL(path, document.location.origin);
     // Create a request object that mimics the Fetch API's request structure
     const request = new Request(url, {
@@ -46,6 +48,28 @@ const navigate = () => {
     app.fetch(request).then((response) => {
         response.text().then((text) => {
             document.body.innerHTML = text;
+            const tempDom = new DOMParser().parseFromString(text, 'text/html');
+            const originalScript = tempDom.querySelector('script');
+            if (originalScript) {
+                const script = document.createElement('script');
+                script.type = 'module'; // Copy any attributes needed
+                script.textContent = originalScript.textContent; // Set the script content
+
+                // Remove the original script to avoid duplicates or confusion
+                originalScript.parentNode.removeChild(originalScript);
+
+                // Append the new script element where you need it, for example, to the container or document.head
+                document.head.appendChild(script); // Or use container.appendChild(script) if it needs to be in a specific place
+
+            }
+
+
+
+
+
+
+
+
         });
     });
 };
@@ -67,4 +91,4 @@ window.addEventListener('popstate', () => {
 });
 
 // Initial navigation to home
-navigate('/');
+navigate();

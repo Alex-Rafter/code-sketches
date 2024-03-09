@@ -1,4 +1,4 @@
-import { html } from 'hono/html'
+import { html } from 'https://esm.sh/hono/html';
 
 const Article = () => {
     return html`
