@@ -23,18 +23,6 @@ const GenericHeadTags = ({ title, description } = {}) => {
     `;
 }
 
-const Article = () => {
-    return html`
-    <script type="module">
-    import { createApp } from 'https://unpkg.com/petite-vue?module'
-    createApp({toggle : false,init(el) {console.log("init", el)}}).mount('#clickArticle')
-    </script>
-    <article id="clickArticle"  @vue:mounted="init($el)" :class="(toggle) ? 'blue' : 'red'" style="width: 100vw;height: 50vh;" @click="toggle = !toggle">
-        <h2>Some Content</h2>
-        <p>Some more content</p>
-    </article>
-    `
-}
 
 const Main = (content) => {
     return html`
@@ -50,20 +38,4 @@ const Main = (content) => {
     `
 }
 
-
-
-const Layout = (content) => {
-    return html`
-        <html>
-            <head>
-                <title>Hono App</title>
-            </head>
-            <body>
-                ${content}
-            </body>
-        </html>
-    `;
-}
-
-
-export { Main, Layout, Article };
+export { Main };

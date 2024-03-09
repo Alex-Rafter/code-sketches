@@ -1,13 +1,15 @@
 import { Hono } from 'hono';
 import { html } from 'hono/html'
-import { Main, Layout, Article } from './templates/main.js'
+import { logger } from 'hono/logger'
+import { Main } from './templates/main.js'
+import { Article } from './templates/article.js'
 const app = new Hono();
 
+app.use(logger())
 app.use('*', async (c, next) => {
     c.setRenderer(content => c.html(Main(content)))
     await next()
 })
-
 
 
 app.use('*', async (c, next) => {
@@ -24,7 +26,6 @@ const Title = () => {
 const Span = (content = []) => {
     return html`<span class="new-test">${content[0]}${content[1]}</span>`
 }
-
 
 app.get('/', (c) => {
     return c.render(Span([Title(), Article()]))
@@ -45,15 +46,8 @@ app.all('*', () => new Response('Not found', { status: 404 }));
 
 // Fetch event handler
 self.addEventListener('fetch', (event) => {
-    console.log('Fetch event', event.request.url);
     const url = new URL(event.request.url);
-    if (url.href.includes('petite-vue')) {
-        console.log('Skipping', url.href);
-        return
-    } else {
-        // Use Hono to handle requests
-        console.log('Handling', url.href);
-        event.respondWith(app.fetch(event.request));
-    }
+    if (url.href.includes('petite-vue')) return
+    event.respondWith(app.fetch(event.request));
 });
 

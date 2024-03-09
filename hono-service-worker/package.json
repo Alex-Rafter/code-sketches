@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "esbuild src/sw.js --bundle --outfile=sw.js",
-    "watch": "esbuild src/sw.js --bundle --outfile=sw.js --watch"
+    "watch": "esbuild src/sw.js --bundle --outfile=sw.js --watch",
+    "watch-2": "esbuild src/routes/index.js --bundle --minify --outfile=sw.js --watch",
+    "watch-3": "esbuild src/jsx/index.js --loader:.js=jsx --bundle --minify --outfile=sw.js --watch"
   },
   "keywords": [],
   "author": "",
