@@ -3,6 +3,7 @@ import { reactive } from 'https://unpkg.com/petite-vue?module'
 
 const store = reactive({
     count: 0,
+    toggle: false,
     inc() {
         this.count++
         console.log('count:', this.count)

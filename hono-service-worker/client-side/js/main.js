@@ -26,6 +26,11 @@ const GenericHeadTags = ({ title, description } = {}) => {
 
 const Main = (content) => {
     return html`
+    <script type="module">
+    import { createApp, reactive } from 'https://unpkg.com/petite-vue?module'
+    import { store } from '/js/store.js'
+    createApp({store}).mount('#app')
+</script>
     <div id="app">
         <h1>Here I am Testing The Newest Middleware from Main Template</h1>
         ${content}
