@@ -27,9 +27,9 @@ const GenericHeadTags = ({ title, description } = {}) => {
 const Main = (content) => {
     return html`
     <div id="app">
-    <h1>Here I am Testing The Newest Middleware from Main Template</h1>
-    ${content}
-</div>
+        <h1>Here I am Testing The Newest Middleware from Main Template</h1>
+        ${content}
+    </div>
     `
 }
 

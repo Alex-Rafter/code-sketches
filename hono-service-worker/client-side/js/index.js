@@ -3,6 +3,7 @@ import { logger } from 'https://esm.sh/hono/logger';
 import { html } from 'https://esm.sh/hono/html';
 import { Main } from './main.js';
 import { Article } from './article.js';
+import { Button } from './button.js';
 
 const app = new Hono()
 
@@ -29,6 +30,9 @@ app.get('/', (c) => {
 })
 app.get('/about', (c) => {
     return c.render(Article())
+})
+app.get('/push', (c) => {
+    return c.render(Button())
 })
 
 // Function to handle client-side navigation
@@ -60,16 +64,7 @@ const navigate = () => {
 
                 // Append the new script element where you need it, for example, to the container or document.head
                 document.head.appendChild(script); // Or use container.appendChild(script) if it needs to be in a specific place
-
             }
-
-
-
-
-
-
-
-
         });
     });
 };
