@@ -16,8 +16,8 @@ app.use('*', async (c, next) => {
 
 const Nav = html`
 <nav>
-<a href="#/" id="home">Home</a> |
-<a href="#/about" id="about">About</a>
+<a v-scope="HonoLink()" @vue:mounted="init($el)" href="#/" id="home">Home</a> |
+<a v-scope="HonoLink()" @vue:mounted="init($el)" href="#/about" id="about">About</a>
 </nav>
 `
 
