@@ -9,6 +9,10 @@
     {
           "imports": {
             "autoGenerateBskElement": "/js/bluesky-elements/base/auto-generate-element.js",
+            "makeComponent": "/js/bluesky-elements/base/make-component.js",
+            "bsk" : "/js/bluesky-elements/base/bsk.js",
+            "bskExample" : "/js/bluesky-elements/base/bsk-example.js",
+            "bskPanel" : "/js/bluesky-elements/base/bsk-panel.js",
             "petite-vue" : "https://unpkg.com/petite-vue?module"
           }
         }
@@ -23,7 +27,7 @@
 </head>
 
 <body>
-  <bsk-example message="really last thing!" :numb="12" :booly="false"></bsk-example>
+  <bsk-example message="really last thing!" :numb="12" :booly="true"></bsk-example>
   <bsk-panel v-cloak>
     <span slot="panel">
       <div class="anchor-link-group bg-light container-wrapper-fluid text-align-center">
@@ -68,99 +72,13 @@
     </span>
   </bsk-panel>
 
-  <!-- <template bsk-element="bsk-example">
-    <style>
-      h1 {
-        color: red;
-      }
-    </style>
-    <h1>Example</h1>
-    <p>tester</p>
-  </template> -->
   <script type="module">
-    import { autoGenerateBskElement }  from "autoGenerateBskElement";
-    // import the makeComponent function instead of above
-    // import the component you want to use
+    import { bsk } from "bsk";
+    import {bskExample} from "bskExample"
+    import {bskPanel} from "bskPanel"
 
-    // const html = /*html*/ `<p>Passing to state obj</p>`
+    bsk({bskPanel, bskExample})
 
-      const bskExample = {
-        message : "Hello World",
-        numb : null,
-        $template : /*html*/`
-        <div>
-          <h1>{{message}}</h1>
-          <p>{{typeof numb}}</p>
-          <span v-if="booly">If the attr is correctly parsed, this will not show. If it does still show then the type is still a string. <br>See here: booly is {{typeof booly}}, and its value is {{booly}}</span>
-        </div>`,
-    }
-
-    const bskPanel = {
-      linksData : null,
-      init (el) {
-        console.log('bsk-panel init', el);
-        this.linksData = this.queryAndCreateThisProps(el)
-        el.style.display = 'block'
-        el.querySelector(`[slot="panel"]`).remove()
-      },
-      queryAndCreateThisProps(el) {
-        const linksData = [];
-        const linkGroup = el.querySelector('ul.link-group');
-        const links = linkGroup.querySelectorAll('li');
-
-        links.forEach(link => {
-          const text = link.textContent.trim();
-          const href = link.querySelector('a').href;
-          linksData.push({ text, href });
-        });
-        return linksData
-      },
-      $template : /*html*/`
-        <div @vue:mounted="init($el)" :style="display: none;">
-          <slot name="panel"></slot>
-          <ul>
-            <li v-for="obj in linksData">{{obj.text}}</li>
-          </ul>
-        </div>`,
-    }
-
-
-    editAndPass({bskPanel, bskExample})
-
-    function editAndPass(components) {
-      // messing about with checking if custom element exists
-      console.log(customElements.get("bsk-example"));
-      if (customElements.get("bsk-example")) {
-        return
-      }
-
-      const toKebabCase = (str) => {
-        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-      };
-
-      for (const key in components) {
-        const obj = components[key];
-        obj.tagName = toKebabCase(key);
-        autoGenerateBskElement(obj);
-      }
-
-      // const obj = components[Object.keys(components)[0]];
-      // obj.tagName = toKebabCase(Object.keys(components)[0]);
-      // autoGenerateBskElement(obj);
-    }
-
-
-    // const tagName = toKebabCase(Object.keys(arg)[0])
-    // console.log(Object.keys(arg)[0]);
-    // console.log(`    autoGenerateBskElements([{${tagName}, ${arg}}]);`);
-
-    // autoGenerateBskElement({arg});
-
-
-
-    // console.log(document.querySelector("[bsk-example]"));
-
-    // generate([{tagName, stateObjectAbove}])
   </script>
 </body>
 

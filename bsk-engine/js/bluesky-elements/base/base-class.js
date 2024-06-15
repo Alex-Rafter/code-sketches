@@ -2,7 +2,7 @@ import { createApp } from "petite-vue";
 import { wrapDirective } from "../directives/wrap.js";
 
 export class baseEl extends HTMLElement {
-  constructor() {
+  constructor(state) {
     super();
     const attrsUsed = this.getAttributeNames();
     this.state = {
@@ -10,16 +10,9 @@ export class baseEl extends HTMLElement {
       icon: null,
       icons: '',
     };
+
     for (const attr of attrsUsed) {
-      // loop through all attributes and add them to state
-      // if the value is true or false, convert to boolean
       let attrValue = this.attributes.getNamedItem(attr).value;
-
-
-      // let isTrueOrFalse = (/^(true|false)$/).test(attrValue.toLowerCase());
-      // attrValue = (isTrueOrFalse) ? attrValue.toLowerCase() === "true" : attrValue;
-
-
       if (attr.startsWith(':')) {
         const propName = attr.slice(1);
         try {
@@ -34,9 +27,35 @@ export class baseEl extends HTMLElement {
 
 
     }
+    this.mountEl(state);
   }
   evaluateExpression(expression) {
     return new Function(`return ${expression}`).call(this);
+  }
+  connectedCallback() {
+    this.slots();
+
+    if (Object.keys(state).includes("mounted")) {
+      this.state.mounted(this);
+    }
+  }
+  slots() {
+    // get all child elements with of type slot as an array
+    const slotsArr = Array.from(this.querySelectorAll('slot'))
+    if (slotsArr.length === 0) return
+    const elsWithSlotAttr = this.querySelectorAll(':scope > [slot]')
+
+    // move all elements with slot attribute to the slot element with matching name attribute
+    elsWithSlotAttr.forEach(el => {
+      const slotName = el.getAttribute('slot')
+      const slotEl = this.querySelector(`slot[name="${slotName}"]`)
+      slotEl.replaceWith(el)
+    })
+  }
+  disconnectedCallback() {
+    if (Object.keys(state).includes("unmounted")) {
+      this.state.unmounted(this);
+    }
   }
   mountEl(state) {
     console.log("mountEl", state);

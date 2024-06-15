@@ -1,36 +1,45 @@
-import { baseEl } from "./base-class.js";
+// import { baseEl } from "./base-class.js";
+import { createApp } from "petite-vue";
+import { wrapDirective } from "../directives/wrap.js";
 
 export function makeComponent(state = {}) {
-  console.log("state", state);
   const tagName = `${state.tagName}`;
-  console.log("tagName", tagName);
   const className = `${tagName.replace(/-([a-z])/, (v) => v[1].toUpperCase())}`;
   const obj = {};
-  const definingAttr =
-    Object.keys(state).length !== 0 ? "bsk-advanced" : "bsk-simple";
 
-  obj[className] = class extends baseEl {
+  obj[className] = class extends HTMLElement {
     constructor() {
       super();
+      const attrsUsed = this.getAttributeNames();
+      this.state = {
+        is: 'default',
+        icon: null,
+        icons: '',
+      };
+
+      for (const attr of attrsUsed) {
+        let attrValue = this.attributes.getNamedItem(attr).value;
+        if (attr.startsWith(':')) {
+          const propName = attr.slice(1);
+          try {
+            const value = this.evaluateExpression(attrValue);
+            this.state[propName.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = value
+          } catch (e) {
+            console.error(`Failed to evaluate expression: ${newValue}`, e);
+          }
+        } else {
+          this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
+        }
+
+
+      }
       this.mountEl(state);
     }
+    evaluateExpression(expression) {
+      return new Function(`return ${expression}`).call(this);
+    }
     connectedCallback() {
-
       this.slots();
-      this.setAttribute(definingAttr, "");
-
-      const componentChildren = Array.from(this.children);
-      componentChildren.forEach(removeNullAttrsThatAreString);
-
-      function removeNullAttrsThatAreString(el) {
-        el.getAttributeNames().forEach((attr) => {
-          const matchFalsy =
-            el.getAttribute(attr).match(/null|undefined|false/) !== null;
-          const shouldBeRemoved =
-            matchFalsy && el.getAttribute(attr) !== "bsk-";
-          shouldBeRemoved && el.removeAttribute(attr);
-        });
-      }
 
       if (Object.keys(state).includes("mounted")) {
         this.state.mounted(this);
@@ -54,7 +63,17 @@ export function makeComponent(state = {}) {
         this.state.unmounted(this);
       }
     }
-  };
+    mountEl(state) {
+      console.log("mountEl", state);
+      this.state = { ...state, ...this.state };
+      const templateString = this.state.$template;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(templateString, 'text/html');
+      const newNode = doc.body.firstChild;
+      this.appendChild(newNode);
+      createApp(this.state).directive('wrap', wrapDirective).mount(this);
+    }
+  }
 
   customElements.define(tagName, obj[className]);
 }
