@@ -14,10 +14,29 @@ export class baseEl extends HTMLElement {
       // loop through all attributes and add them to state
       // if the value is true or false, convert to boolean
       let attrValue = this.attributes.getNamedItem(attr).value;
-      let isTrueOrFalse = (/^(true|false)$/).test(attrValue.toLowerCase());
-      attrValue = (isTrueOrFalse) ? attrValue.toLowerCase() === "true" : attrValue;
-      this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
+
+
+      // let isTrueOrFalse = (/^(true|false)$/).test(attrValue.toLowerCase());
+      // attrValue = (isTrueOrFalse) ? attrValue.toLowerCase() === "true" : attrValue;
+
+
+      if (attr.startsWith(':')) {
+        const propName = attr.slice(1);
+        try {
+          const value = this.evaluateExpression(attrValue);
+          this.state[propName.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = value
+        } catch (e) {
+          console.error(`Failed to evaluate expression: ${newValue}`, e);
+        }
+      } else {
+        this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
+      }
+
+
     }
+  }
+  evaluateExpression(expression) {
+    return new Function(`return ${expression}`).call(this);
   }
   mountEl(state) {
     console.log("mountEl", state);

@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <!-- <bsk-example message="really last thing!"></bsk-example> -->
+  <bsk-example message="really last thing!" :numb="12" :booly="false"></bsk-example>
   <bsk-panel v-cloak>
     <span slot="panel">
       <div class="anchor-link-group bg-light container-wrapper-fluid text-align-center">
@@ -86,9 +86,12 @@
 
       const bskExample = {
         message : "Hello World",
+        numb : null,
         $template : /*html*/`
         <div>
-
+          <h1>{{message}}</h1>
+          <p>{{typeof numb}}</p>
+          <span v-if="booly">If the attr is correctly parsed, this will not show. If it does still show then the type is still a string. <br>See here: booly is {{typeof booly}}, and its value is {{booly}}</span>
         </div>`,
     }
 
@@ -122,7 +125,7 @@
     }
 
 
-    editAndPass({bskPanel})
+    editAndPass({bskPanel, bskExample})
 
     function editAndPass(components) {
       // messing about with checking if custom element exists
@@ -131,12 +134,19 @@
         return
       }
 
-      const obj = components[Object.keys(components)[0]];
       const toKebabCase = (str) => {
         return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
       };
-      obj.tagName = toKebabCase(Object.keys(components)[0]);
-      autoGenerateBskElement(obj);
+
+      for (const key in components) {
+        const obj = components[key];
+        obj.tagName = toKebabCase(key);
+        autoGenerateBskElement(obj);
+      }
+
+      // const obj = components[Object.keys(components)[0]];
+      // obj.tagName = toKebabCase(Object.keys(components)[0]);
+      // autoGenerateBskElement(obj);
     }
 
 
