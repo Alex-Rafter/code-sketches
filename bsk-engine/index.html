@@ -22,7 +22,8 @@
 
   </script>
   <style>
-    [v-cloak] {
+    [v-cloak],
+    *:not(:defined) {
       display: none;
     }
   </style>
@@ -85,6 +86,7 @@
       <div @vue:mounted="init($el)">
         <slot name="panel"></slot>
         <h2>{{store.count}}</h2>
+        <button @click="store.count++">Up count</button>
       </div>
     </template>
 
