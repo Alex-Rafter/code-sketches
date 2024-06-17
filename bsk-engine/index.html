@@ -13,6 +13,7 @@
             "bsk" : "/js/bluesky-elements/base/bsk.js",
             "bskExample" : "/js/bluesky-elements/base/bsk-example.js",
             "bskPanel" : "/js/bluesky-elements/base/bsk-panel.js",
+            "bskSlotter" : "/js/bluesky-elements/base/bsk-slotter.js",
             "petite-vue" : "https://unpkg.com/petite-vue?module"
           }
         }
@@ -24,60 +25,71 @@
       display: none;
     }
   </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-  <bsk-example message="really last thing!" :numb="12" :booly="true"></bsk-example>
-  <bsk-panel v-cloak>
-    <span slot="panel">
-      <div class="anchor-link-group bg-light container-wrapper-fluid text-align-center">
+<body class="bg-orange-100">
+  <div class="container mx-auto py-7 px-8">
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2 grid-rows-2">
+      <bsk-example message="really last thing!" :numb="12" :booly="true"></bsk-example>
+      <bsk-panel v-cloak>
+        <span slot="panel">
+          <div class="anchor-link-group bg-light container-wrapper-fluid text-align-center">
 
-        <div class="container">
+            <div class="container">
 
-          <div class="row c">
-            <div class="col-md-12 column">
-              <div>
+              <div class="row c">
+                <div class="col-md-12 column">
+                  <div>
 
-
-
-
-                <ul class="link-group">
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                  <li class="link-group__item">
-                    <a class="link-group__link" href="/">Anchor Link</a>
-                  </li>
-                </ul>
+                    <ul class="link-group">
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                      <li class="link-group__item">
+                        <a class="link-group__link" href="/">Anchor Link</a>
+                      </li>
+                    </ul>
 
 
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-      </div>
-    </span>
-  </bsk-panel>
+          </div>
+        </span>
+      </bsk-panel>
+      <bsk-slotter>
+        <span slot="panel">
+          <p>Just a test</p>
+        </span>
+      </bsk-slotter>
+    </div>
+
+
+  </div>
 
   <script type="module">
-    import { bsk } from "bsk";
-    import {bskExample} from "bskExample"
-    import {bskPanel} from "bskPanel"
 
-    bsk({bskPanel, bskExample})
+    import { bsk } from "bsk";
+    import { bskExample } from "bskExample"
+    import { bskPanel } from "bskPanel"
+    import { bskSlotter } from "bskSlotter"
+
+    bsk({bskExample, bskSlotter, bskPanel})
 
   </script>
 </body>

@@ -2,7 +2,7 @@ import { createApp } from "petite-vue";
 import { wrapDirective } from "../directives/wrap.js";
 
 export class baseEl extends HTMLElement {
-  constructor(state) {
+  constructor() {
     super();
     const attrsUsed = this.getAttributeNames();
     this.state = {
@@ -24,20 +24,11 @@ export class baseEl extends HTMLElement {
       } else {
         this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
       }
-
-
     }
     this.mountEl(state);
   }
   evaluateExpression(expression) {
     return new Function(`return ${expression}`).call(this);
-  }
-  connectedCallback() {
-    this.slots();
-
-    if (Object.keys(state).includes("mounted")) {
-      this.state.mounted(this);
-    }
   }
   slots() {
     // get all child elements with of type slot as an array
@@ -52,13 +43,18 @@ export class baseEl extends HTMLElement {
       slotEl.replaceWith(el)
     })
   }
+  connectedCallback() {
+    this.slots();
+    if (Object.keys(state).includes("mounted")) {
+      this.state.mounted(this);
+    }
+  }
   disconnectedCallback() {
     if (Object.keys(state).includes("unmounted")) {
       this.state.unmounted(this);
     }
   }
   mountEl(state) {
-    console.log("mountEl", state);
     this.state = { ...state, ...this.state };
     const templateString = this.state.$template;
     const parser = new DOMParser();

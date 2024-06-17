@@ -1,11 +1,10 @@
-// import { baseEl } from "./base-class.js";
 import { createApp } from "petite-vue";
 import { wrapDirective } from "../directives/wrap.js";
+import { store } from "./store.js";
 
 function bsk(components) {
-    const toKebabCase = (str) => {
-        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-    };
+    //
+    const toKebabCase = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
     for (const key in components) {
         const obj = components[key];
@@ -19,6 +18,7 @@ function bsk(components) {
 }
 
 function makeComponent(state = {}) {
+    //
     const tagName = `${state.tagName}`;
     const className = `${tagName.replace(/-([a-z])/, (v) => v[1].toUpperCase())}`;
     const obj = {};
@@ -32,8 +32,10 @@ function makeComponent(state = {}) {
                 icon: null,
                 icons: '',
             };
+            this.foundSlots = [];
 
             for (const attr of attrsUsed) {
+                //
                 let attrValue = this.attributes.getNamedItem(attr).value;
                 if (attr.startsWith(':')) {
                     const propName = attr.slice(1);
@@ -46,13 +48,31 @@ function makeComponent(state = {}) {
                 } else {
                     this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
                 }
-
-
             }
+            //
+            // console.log('state', this.outerHTML);
+            this.newSlots();
             this.mountEl(state);
         }
         evaluateExpression(expression) {
             return new Function(`return ${expression}`).call(this);
+        }
+        newSlots() {
+            this.foundSlots = [...this.querySelectorAll('[slot]')]
+        }
+        slots() {
+            // get all child elements with of type slot as an array
+            const slotsArr = Array.from(this.querySelectorAll('slot'))
+            if (slotsArr.length === 0 || this.foundSlots.length === 0) {
+                return
+            }
+            // const elsWithSlotAttr = this.querySelectorAll(':scope > [slot]')
+            // move all elements with slot attribute to the slot element with matching name attribute
+            this.foundSlots.forEach(el => {
+                const slotName = el.getAttribute('slot')
+                const slotEl = this.querySelector(`slot[name="${slotName}"]`)
+                slotEl.replaceWith(el)
+            })
         }
         connectedCallback() {
             this.slots();
@@ -61,33 +81,23 @@ function makeComponent(state = {}) {
                 this.state.mounted(this);
             }
         }
-        slots() {
-            // get all child elements with of type slot as an array
-            const slotsArr = Array.from(this.querySelectorAll('slot'))
-            if (slotsArr.length === 0) return
-            const elsWithSlotAttr = this.querySelectorAll(':scope > [slot]')
-
-            // move all elements with slot attribute to the slot element with matching name attribute
-            elsWithSlotAttr.forEach(el => {
-                const slotName = el.getAttribute('slot')
-                const slotEl = this.querySelector(`slot[name="${slotName}"]`)
-                slotEl.replaceWith(el)
-            })
-        }
         disconnectedCallback() {
             if (Object.keys(state).includes("unmounted")) {
                 this.state.unmounted(this);
             }
         }
         mountEl(state) {
-            console.log("mountEl", state);
             this.state = { ...state, ...this.state };
             const templateString = this.state.$template;
             const parser = new DOMParser();
             const doc = parser.parseFromString(templateString, 'text/html');
             const newNode = doc.body.firstChild;
             this.appendChild(newNode);
-            createApp(this.state).directive('wrap', wrapDirective).mount(this);
+            const tempObj = { store }
+            tempObj[`X_${className}`] = () => this.state
+            this.setAttribute('v-scope', `X_${className}()`)
+            createApp(tempObj).directive('wrap', wrapDirective).mount(this);
+
         }
     }
 
