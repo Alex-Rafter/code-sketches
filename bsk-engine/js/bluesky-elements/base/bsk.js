@@ -6,7 +6,7 @@ function bsk(components) {
     //
     const toKebabCase = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
-
+    // first set the store
     for (const key in components) {
         if (components[key]._isReactive) {
             storeStore = components[key];
@@ -14,13 +14,12 @@ function bsk(components) {
         }
     }
 
-
     for (const key in components) {
         //
         const obj = components[key];
         obj.tagName = toKebabCase(key);
 
-        if (key !== 'store' && !customElements.get(obj.tagName)) {
+        if (!components[key]._isReactive && !customElements.get(obj.tagName)) {
             makeComponent(obj, storeStore);
         }
     }

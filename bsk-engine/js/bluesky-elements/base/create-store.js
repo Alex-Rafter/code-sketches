@@ -1,8 +1,8 @@
-import { reactive } from "petite-vue";
+import { reactive as r } from "petite-vue";
 
-function createStore(obj) {
+function reactive(obj) {
     obj._isReactive = true;
-    return reactive(obj)
+    return r(obj)
 }
 
-export { createStore }
+export { reactive }
