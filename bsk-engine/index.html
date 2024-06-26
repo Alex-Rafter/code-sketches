@@ -8,9 +8,8 @@
   <script type="importmap">
     {
           "imports": {
-            "autoGenerateBskElement": "/js/bluesky-elements/base/auto-generate-element.js",
-            "makeComponent": "/js/bluesky-elements/base/make-component.js",
             "bsk" : "/js/bluesky-elements/base/bsk.js",
+            "create-store" : "/js/bluesky-elements/base/create-store.js",
             "bskExample" : "/js/bluesky-elements/base/bsk-example.js",
             "bskPanel" : "/js/bluesky-elements/base/bsk-panel.js",
             "bskSlotter" : "/js/bluesky-elements/base/bsk-slotter.js",
@@ -27,7 +26,18 @@
       display: none;
     }
   </style>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+
+    import { bsk } from "bsk";
+    import { bskExample } from "bskExample"
+    import { bskPanel } from "bskPanel"
+    import { bskSlotter } from "bskSlotter"
+    import { store } from "store"
+
+    bsk({bskExample, bskSlotter, bskPanel, store})
+
+    </script>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 
 <body class="bg-orange-100">
@@ -79,6 +89,11 @@
           <p>Just a test</p>
         </span>
       </bsk-slotter>
+      <bsk-slotter>
+        <span slot="panel">
+          <p>So is this</p>
+        </span>
+      </bsk-slotter>
     </div>
 
 
@@ -93,17 +108,7 @@
 
   </div>
 
-  <script type="module">
 
-    import { bsk } from "bsk";
-    import { bskExample } from "bskExample"
-    import { bskPanel } from "bskPanel"
-    import { bskSlotter } from "bskSlotter"
-    import { store } from "store"
-
-    bsk({bskExample, bskSlotter, bskPanel, store})
-
-  </script>
 </body>
 
 </html>

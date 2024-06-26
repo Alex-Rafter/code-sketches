@@ -8,7 +8,7 @@ function bsk(components) {
 
 
     for (const key in components) {
-        if (key === 'store') {
+        if (components[key]._isReactive) {
             storeStore = components[key];
             break;
         }
@@ -20,7 +20,7 @@ function bsk(components) {
         const obj = components[key];
         obj.tagName = toKebabCase(key);
 
-        if (!customElements.get(obj.tagName)) {
+        if (key !== 'store' && !customElements.get(obj.tagName)) {
             makeComponent(obj, storeStore);
         }
     }

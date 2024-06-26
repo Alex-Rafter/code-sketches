@@ -1,6 +1,6 @@
-import { reactive } from "petite-vue";
+import { createStore } from "create-store"
 
-const store = reactive({
+const store = createStore({
   count: 55,
 })
 
