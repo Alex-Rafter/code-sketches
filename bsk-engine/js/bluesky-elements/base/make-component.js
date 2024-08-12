@@ -1,8 +1,7 @@
-// import { baseEl } from "./base-class.js";
 import { createApp } from "petite-vue";
-import { wrapDirective } from "../directives/wrap.js";
 
-export function makeComponent(state = {}) {
+function makeComponent(state = {}, storeStore = null) {
+  //
   const tagName = `${state.tagName}`;
   const className = `${tagName.replace(/-([a-z])/, (v) => v[1].toUpperCase())}`;
   const obj = {};
@@ -16,8 +15,10 @@ export function makeComponent(state = {}) {
         icon: null,
         icons: '',
       };
+      this.foundSlots = [];
 
       for (const attr of attrsUsed) {
+        //
         let attrValue = this.attributes.getNamedItem(attr).value;
         if (attr.startsWith(':')) {
           const propName = attr.slice(1);
@@ -30,13 +31,29 @@ export function makeComponent(state = {}) {
         } else {
           this.state[attr.replace(/-([a-z])/g, (v) => v[1].toUpperCase())] = attrValue
         }
-
-
       }
+      //
+      this.newSlots();
       this.mountEl(state);
     }
     evaluateExpression(expression) {
       return new Function(`return ${expression}`).call(this);
+    }
+    newSlots() {
+      this.foundSlots = [...this.querySelectorAll('[slot]')]
+    }
+    slots() {
+      // get all child elements with of type slot as an array
+      const slotsArr = [...this.querySelectorAll('slot')]
+      if (slotsArr.length === 0 || this.foundSlots.length === 0) {
+        return
+      }
+      // move all elements with slot attribute to the slot element with matching name attribute
+      this.foundSlots.forEach(el => {
+        const slotName = el.getAttribute('slot')
+        const slotEl = this.querySelector(`slot[name="${slotName}"]`)
+        slotEl.replaceWith(el)
+      })
     }
     connectedCallback() {
       this.slots();
@@ -45,35 +62,24 @@ export function makeComponent(state = {}) {
         this.state.mounted(this);
       }
     }
-    slots() {
-      // get all child elements with of type slot as an array
-      const slotsArr = Array.from(this.querySelectorAll('slot'))
-      if (slotsArr.length === 0) return
-      const elsWithSlotAttr = this.querySelectorAll(':scope > [slot]')
-
-      // move all elements with slot attribute to the slot element with matching name attribute
-      elsWithSlotAttr.forEach(el => {
-        const slotName = el.getAttribute('slot')
-        const slotEl = this.querySelector(`slot[name="${slotName}"]`)
-        slotEl.replaceWith(el)
-      })
-    }
     disconnectedCallback() {
       if (Object.keys(state).includes("unmounted")) {
         this.state.unmounted(this);
       }
     }
     mountEl(state) {
-      console.log("mountEl", state);
       this.state = { ...state, ...this.state };
-      const templateString = this.state.$template;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(templateString, 'text/html');
-      const newNode = doc.body.firstChild;
-      this.appendChild(newNode);
-      createApp(this.state).directive('wrap', wrapDirective).mount(this);
+      const tempObj = {}
+      if (storeStore) {
+        tempObj.store = storeStore
+      }
+      tempObj[`X_${className}`] = () => this.state
+      this.setAttribute('v-scope', `X_${className}()`)
+      createApp(tempObj).mount(this);
     }
   }
 
   customElements.define(tagName, obj[className]);
 }
+
+export { makeComponent };

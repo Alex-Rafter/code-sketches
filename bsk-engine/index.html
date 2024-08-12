@@ -9,11 +9,10 @@
     {
           "imports": {
             "bsk" : "/js/bluesky-elements/base/bsk.js",
-            "create-store" : "/js/bluesky-elements/base/create-store.js",
             "components/" : "/js/bluesky-elements/components/",
             "stores/" : "/js/bluesky-elements/stores/",
-            "bskExample" : "/js/bluesky-elements/base/bsk-example.js",
-            "bskPanel" : "/js/bluesky-elements/base/bsk-panel.js",
+            "make-component" : "/js/bluesky-elements/base/make-component.js",
+            "create-store" : "/js/bluesky-elements/base/create-store.js",
             "petite-vue" : "https://unpkg.com/petite-vue?module"
           }
         }
@@ -29,10 +28,11 @@
   <script type="module">
 
     import { bsk } from "bsk";
-
+    //
     import { bskExample } from "components/bsk-example.js"
     import { bskPanel } from "components/bsk-panel.js"
     import { bskSlotter } from "components/bsk-slotter.js"
+    //
     import { store } from "stores/store.js"
 
 

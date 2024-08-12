@@ -1,4 +1,4 @@
-import { reactive } from "create-store"
+import { reactive } from "bsk"
 
 const store = reactive({
   count: 55,
